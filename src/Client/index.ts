@@ -36,7 +36,7 @@ export default class TicketBot extends Client {
 
   private onReady () {
     console.log('ready');
-    this.editStatus('offline');
+    this.editStatus('invisible');
   }
 
   private async onMessage (msg: Message) {
