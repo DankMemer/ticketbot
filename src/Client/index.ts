@@ -1,5 +1,5 @@
 import { Client, Message } from 'eris';
-import commands from '../commands';
+import { commands, Context } from '../commands';
 import Database from '../Database';
 
 export type TicketBotOptions = {
@@ -11,35 +11,46 @@ export type TicketBotOptions = {
   db: Database;
   recipients: string[];
   owners: string[];
+  development: boolean;
 }
 
 export default class TicketBot extends Client {
   public opts: TicketBotOptions;
+  public context: Context;
 
   constructor (opts: TicketBotOptions) {
     super(opts.token, {
-      getAllUsers: true
+      getAllUsers: !opts.development
     });
 
     this.opts = opts;
+    this.context = {
+      commands,
+      client: this,
+      db: this.opts.db
+    };
 
     this.on('ready', this.onReady);
     this.on('messageCreate', this.onMessage);
   }
 
-  connect () {
+  public connect (): Promise<void> {
     return Promise.all([
       super.connect(),
       this.opts.db.bootstrap()
-    ]).then(() => void 0);
+    ]).then(() => {
+      for (const command of commands.values()) {
+        command.onLoad(this.context);
+      }
+    });
   }
 
-  private onReady () {
+  private onReady (): void {
     console.log('ready');
     this.editStatus('invisible');
   }
 
-  private async onMessage (msg: Message) {
+  private async onMessage (msg: Message): Promise<void> {
     const guildMember = this
       .guilds.get(this.opts.guildID)
       .members.get(msg.author.id);
@@ -54,7 +65,7 @@ export default class TicketBot extends Client {
       return;
     }
 
-    const [ commandName, ...args ] = msg.content.slice(this.opts.prefix.length).split(/ /g);
+    const [ commandName, ...args ] = msg.content.slice(this.opts.prefix.length).split(/ +/g);
     const command = commands.get(commandName);
     if (!command) {
       return;
@@ -63,9 +74,7 @@ export default class TicketBot extends Client {
     const res = await command.execute({
       msg,
       args,
-      commands,
-      client: this,
-      db: this.opts.db
+      ...this.context
     });
     if (res) {
       msg.channel.createMessage({

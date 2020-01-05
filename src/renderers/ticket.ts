@@ -1,14 +1,14 @@
 import { Ticket } from '../Database/tables/Tickets';
-import { User } from 'eris';
+import { User, EmbedOptions } from 'eris';
 import { dateToString } from '../util';
 
 enum TicketRenderStates {
   OPEN,
   CLOSED,
-};
+}
 
 export const TicketRenderer = {
-  render: (ticket: Ticket, user: User, state: TicketRenderStates, closer?: User) => ({
+  render: (ticket: Ticket, user: User, state: TicketRenderStates, closer?: User): EmbedOptions => ({
     title: `New ticket: #${ticket._id}`,
     color: state === TicketRenderStates.OPEN ? 0xd48f1c : 0xca2d36,
     fields: [ {

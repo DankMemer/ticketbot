@@ -1,12 +1,12 @@
-import { Command } from './Command';
+import { Command, CommandParams, CommandOutput } from './Command';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
 
-export const updateCommand: Command = {
-  name: 'update',
-  aliases: ['edit'],
-  help: '<ticket id> <new content> [--override]',
-  execute: async ({ client, msg, args, db }) => {
+export default class UpdateCommand implements Command {
+  name = 'update';
+  aliases = ['edit'];
+  help = '<ticket id> <new content> [--override]';
+  public async execute ({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
     if (!args[0]) {
       return `specify a ticket ID and try again ${Emojis.GUCCI_REE}`;
     }
@@ -14,7 +14,7 @@ export const updateCommand: Command = {
       return `specify the new content of this ticket and try again ${Emojis.GUCCI_REE}`;
     }
 
-    let override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
+    const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
     const newContent = args.slice(1).join(' ');
     const ticket = await db.tickets.getTicket(+args[0]);
     if (!ticket) {
@@ -28,7 +28,7 @@ export const updateCommand: Command = {
     for (const recipient of ticket.recipients) {
       client.editMessage(recipient.channelID, recipient.messageID, {
         embed: TicketRenderer.render(ticket, client.users.get(ticket.userID), TicketRenderer.States.OPEN)
-      }).catch(() => {});
+      }).catch(() => void 0);
     }
 
     await db.tickets.updateTicket(ticket._id, newContent);
@@ -41,5 +41,4 @@ export const updateCommand: Command = {
       } ]
     };
   }
-};
-
+}

@@ -1,17 +1,17 @@
-import { Command } from './Command';
+import { Command, CommandParams, CommandOutput } from './Command';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
 
-export const deleteCommand: Command = {
-  name: 'delete',
-  aliases: ['remove', 'del'],
-  help: '<ticket id> [--override]',
-  execute: async ({ client, msg, args, db }) => {
+export default class DeleteCommand implements Command {
+  name = 'delete';
+  aliases = ['remove', 'del'];
+  help = '<ticket id> [--override]';
+  public async execute ({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
     if (!args[0]) {
       return `specify a ticket ID and try again ${Emojis.GUCCI_REE}`;
     }
 
-    let override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
+    const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
     const ticket = await db.tickets.getTicket(+args[0]);
     if (!ticket) {
       return `no ticket with ID #${args[0]} ${Emojis.GUCCI_PANIC_2}`;
@@ -26,7 +26,7 @@ export const deleteCommand: Command = {
     for (const recipient of ticket.recipients) {
       client.editMessage(recipient.channelID, recipient.messageID, {
         embed: TicketRenderer.render(ticket, client.users.get(ticket.userID), TicketRenderer.States.CLOSED, msg.author)
-      }).catch(() => {});
+      }).catch(() => void 0);
     }
 
     await db.tickets.deleteTicket(ticket._id);
@@ -35,5 +35,5 @@ export const deleteCommand: Command = {
       title: `Deleted ticket #${ticket._id} ${Emojis.GUCCI_SCREAM}`
     };
   }
-};
+}
 

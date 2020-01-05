@@ -2,7 +2,13 @@ import { Command } from './Command';
 import * as commands from './commands';
 
 const commandMap: Map<string, Command> = new Map();
-for (const command of Object.values(commands)) {
+for (const CommandClass of Object.values(commands)) {
+  const command = new CommandClass() as Command;
+
+  if (!command.onLoad) {
+    command.onLoad = (): void => void 0;
+  }
+
   if (!command.aliases) {
     command.aliases = [];
   }
@@ -16,4 +22,5 @@ for (const command of Object.values(commands)) {
   }
 }
 
-export default commandMap;
+export { commandMap as commands };
+export * from './Command';

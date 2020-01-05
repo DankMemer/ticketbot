@@ -1,12 +1,12 @@
-import { Command } from './Command';
+import { Command, CommandParams, CommandOutput } from './Command';
 import { Ticket } from '../Database/tables/Tickets';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
 
-export const createCommand: Command = {
-  name: 'create',
-  help: '<content>',
-  execute: async ({ client, db, msg, args }) => {
+export default class CreateCommand implements Command {
+  name = 'create';
+  help = '<content>';
+  public async execute ({ client, db, msg, args }: CommandParams): CommandOutput {
     if (args.length === 0) {
       return `Meow, you cannot send an empty ticket, please try again. ${Emojis.GUCCI_REE}`;
     }
@@ -48,4 +48,4 @@ export const createCommand: Command = {
       footer: { text: 'You should have received a copy of this ticket in your DMs.' }
     };
   }
-};
+}

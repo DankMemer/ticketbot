@@ -8,7 +8,7 @@ export default class GenericTable {
     this.collection = collection;
   }
 
-  public async getIncrementingID(): Promise<number> {
+  public async getIncrementingID (): Promise<number> {
     if (!this.currentID) {
       const currentIDResult = await this.collection.findOne({ currentID: { $exists: true } });
       if (currentIDResult) {
@@ -25,4 +25,4 @@ export default class GenericTable {
     );
     return ++this.currentID;
   }
-};
+}

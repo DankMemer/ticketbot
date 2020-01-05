@@ -1,3 +1,7 @@
+export enum Defaults {
+  RESULTS_PER_PAGE = 5,
+}
+
 export enum Emojis {
   GUCCI_REE     = '<:gucciREEE:604019562849107982>',
   GUCCI_ROAR    = '<:gucciROAR:604019561578233895>',

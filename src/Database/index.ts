@@ -1,7 +1,10 @@
 import { MongoClient, Db } from 'mongodb';
 import Tickets from './tables/Tickets';
 
-export type DatabaseConfig = { url: string, dbName: string };
+export type DatabaseConfig = {
+  url: string;
+  dbName: string;
+};
 
 export default class Database {
   private config: DatabaseConfig;
@@ -14,7 +17,7 @@ export default class Database {
     this.config = config;
   }
 
-  public async bootstrap () {
+  public async bootstrap (): Promise<void> {
     this.dbConn = await MongoClient.connect(this.config.url, {
       useUnifiedTopology: true
     });

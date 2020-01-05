@@ -1,20 +1,24 @@
-import { Command } from './Command';
+import { Command, Paginated, CommandParams, CommandOutput } from './Command';
 import { dateToString } from '../util';
 
-export const listCommand: Command = {
-  name: 'list',
-  execute: ({ db, msg }) =>
-    db.tickets.getTicketsByUser(msg.author.id).then(tickets => ({
+export default class ListCommand implements Command {
+  name = 'list';
+
+  @Paginated({ resultsPerPage: 10, reversed: false })
+  public async execute ({ msg, db }: CommandParams): Promise<CommandOutput> {
+    const tickets = await db.tickets.getTicketsByUser(msg.author.id);
+    if (tickets.length === 0) {
+      return 'You have no open tickets.';
+    }
+
+    return {
       title: 'Open Tickets',
-      ...(tickets.length === 0 ? {
-        description: 'You have no open tickets.'
-      } : {
-        fields: tickets
-          .sort((a, b) => a._id - b._id)
-          .map(ticket => ({
-            name: `Ticket #${ticket._id}`,
-            value: `_Created/last edited at ${dateToString(ticket.createdAt)}_\n\n${ticket.content}`
-          })).slice(-25)
-      })
-    }))
-};
+      fields: tickets
+        .sort((a, b) => a._id - b._id)
+        .map(ticket => ({
+          name: `Ticket #${ticket._id}`,
+          value: `_Created/last edited at ${dateToString(ticket.createdAt)}_\n\n${ticket.content}`
+        }))
+    };
+  }
+}

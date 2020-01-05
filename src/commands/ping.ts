@@ -1,7 +1,7 @@
-import { Command } from './Command';
+import { Command, CommandParams, CommandOutput } from './Command';
 
-export const pingCommand: Command = {
-  name: 'ping',
-  execute: async ({ client }) =>
-    `ponge ${client.shards.get(0).latency}ms`
-};
+export default class PingCommand implements Command {
+  name = 'ping';
+  execute = ({ client }: CommandParams): CommandOutput =>
+    `ponge ${client.shards.get(0).latency}ms`;
+}
