@@ -6,7 +6,7 @@ import { TicketRenderer } from '../renderers';
 export default class CreateCommand implements Command {
   name = 'create';
   help = '<content>';
-  public async execute ({ client, db, msg, args }: CommandParams): CommandOutput {
+  public async execute({ client, db, msg, args }: CommandParams): CommandOutput {
     if (args.length === 0) {
       return `Meow, you cannot send an empty ticket, please try again. ${Emojis.GUCCI_REE}`;
     }

@@ -13,11 +13,11 @@ export default class Database {
 
   public tickets: Tickets;
 
-  constructor (config: DatabaseConfig) {
+  constructor(config: DatabaseConfig) {
     this.config = config;
   }
 
-  public async bootstrap (): Promise<void> {
+  public async bootstrap(): Promise<void> {
     this.dbConn = await MongoClient.connect(this.config.url, {
       useUnifiedTopology: true
     });

@@ -6,7 +6,7 @@ export default class DeleteCommand implements Command {
   name = 'delete';
   aliases = ['remove', 'del'];
   help = '<ticket id> [--override]';
-  public async execute ({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
+  public async execute({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
     if (!args[0]) {
       return `specify a ticket ID and try again ${Emojis.GUCCI_REE}`;
     }

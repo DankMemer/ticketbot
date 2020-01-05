@@ -18,7 +18,7 @@ export default class TicketBot extends Client {
   public opts: TicketBotOptions;
   public context: Context;
 
-  constructor (opts: TicketBotOptions) {
+  constructor(opts: TicketBotOptions) {
     super(opts.token, {
       getAllUsers: !opts.development
     });
@@ -34,7 +34,7 @@ export default class TicketBot extends Client {
     this.on('messageCreate', this.onMessage);
   }
 
-  public connect (): Promise<void> {
+  public connect(): Promise<void> {
     return Promise.all([
       super.connect(),
       this.opts.db.bootstrap()
@@ -45,12 +45,12 @@ export default class TicketBot extends Client {
     });
   }
 
-  private onReady (): void {
+  private onReady(): void {
     console.log('ready');
     this.editStatus('invisible');
   }
 
-  private async onMessage (msg: Message): Promise<void> {
+  private async onMessage(msg: Message): Promise<void> {
     const guildMember = this
       .guilds.get(this.opts.guildID)
       .members.get(msg.author.id);

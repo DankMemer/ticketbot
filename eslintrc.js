@@ -11,6 +11,6 @@ module.exports = {
   ],
   rules: {
     'semi': 1,
-    'space-before-function-paren': 1
+    'space-before-function-paren': [1, { "anonymous": "never", "named": "never", "asyncArrow": "always"}]
   }
 };

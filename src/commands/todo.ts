@@ -5,7 +5,7 @@ export default class TodoCommand implements Command {
   name = 'todo';
 
   @Paginated({ resultsPerPage: 5, reversed: true })
-  public async execute ({ db }: CommandParams): Promise<CommandOutput> {
+  public async execute({ db }: CommandParams): Promise<CommandOutput> {
     const tickets = await db.tickets.getTickets();
     return {
       title: 'Open Tickets',

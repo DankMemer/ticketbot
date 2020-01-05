@@ -7,7 +7,7 @@ export default class HelpCommand implements Command {
 
   name = 'help';
 
-  public onLoad ({ client, commands }: Context): void {
+  public onLoad({ client, commands }: Context): void {
     this.renderedResult = {
       title: 'Meow! I\'m Gucci',
       description: `Hewwo, ime gucci and ime secretary for the Devs, meow ${Emojis.GUCCI_ROAR}\n\n${
@@ -19,7 +19,7 @@ export default class HelpCommand implements Command {
     };
   }
 
-  public execute (): CommandOutput {
+  public execute(): CommandOutput {
     return this.renderedResult;
   }
 }

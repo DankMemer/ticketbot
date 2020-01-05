@@ -5,7 +5,7 @@ export default class ListCommand implements Command {
   name = 'list';
 
   @Paginated({ resultsPerPage: 10, reversed: false })
-  public async execute ({ msg, db }: CommandParams): Promise<CommandOutput> {
+  public async execute({ msg, db }: CommandParams): Promise<CommandOutput> {
     const tickets = await db.tickets.getTicketsByUser(msg.author.id);
     if (tickets.length === 0) {
       return 'You have no open tickets.';
