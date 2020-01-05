@@ -29,3 +29,5 @@ export const paginate = <T>(
       pageIndex * resultsPerPage,
       (pageIndex + 1) * resultsPerPage
     );
+
+export type Awaitable<T> = Promise<T> | T;
