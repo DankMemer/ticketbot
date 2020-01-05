@@ -6,7 +6,7 @@ export enum Emojis {
   GUCCI_PANIC_2 = '<:gucciPANIC2:604019561993469993>',
   GUCCI_SCREAM  = '<:gucciSCREAM:604019562396254238>',
   GUCCI_SIDEEYE = '<:gucciSIDEEYE:604019561536159747>',
-};
+}
 
 export const CatPics: string[] = [
   'https://i.imgur.com/8p3v4EL.jpg',

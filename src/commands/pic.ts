@@ -6,7 +6,7 @@ export const picCommand: Command = {
   name: 'pic',
   aliases: ['floof'],
   execute: async () => ({
-    title: randomInArray(Object.values(Emojis)),
-    image: { url: randomInArray(CatPics) }
+    title: randomInArray<string>(Object.values(Emojis)),
+    image: { url: randomInArray<string>(CatPics) }
   })
 };

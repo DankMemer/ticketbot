@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "**/*.js": true
+        "build/**/*.js": true
     },
     "editor.detectIndentation": false,
     "editor.tabSize": 2
