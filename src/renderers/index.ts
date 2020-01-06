@@ -1,1 +1,2 @@
-export { TicketRenderer } from './ticket';
+export { TicketRenderer } from './Ticket';
+export { TagAutoresponseRenderer } from './TagAutoresponse';

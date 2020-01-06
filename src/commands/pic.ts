@@ -8,5 +8,5 @@ export default class PicCommand implements Command {
   execute = (): CommandOutput => ({
     title: randomInArray<string>(Object.values(Emojis)),
     image: { url: randomInArray<string>(CatPics) }
-  })
+  });
 }

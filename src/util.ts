@@ -25,9 +25,9 @@ export const paginate = <T>(
   pageIndex: number,
   resultsPerPage: number = Defaults.RESULTS_PER_PAGE,
 ): T[] =>
-    arr.slice(
-      pageIndex * resultsPerPage,
-      (pageIndex + 1) * resultsPerPage
-    );
+  arr.slice(
+    pageIndex * resultsPerPage,
+    (pageIndex + 1) * resultsPerPage
+  );
 
 export type Awaitable<T> = Promise<T> | T;

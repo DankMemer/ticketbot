@@ -10,7 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   rules: {
-    'semi': 1,
-    'space-before-function-paren': [1, { "anonymous": "never", "named": "never", "asyncArrow": "always"}]
+    '@typescript-eslint/semi': 1,
+    'space-before-function-paren': [1, { "anonymous": "always", "named": "never", "asyncArrow": "always" }]
   }
 };
