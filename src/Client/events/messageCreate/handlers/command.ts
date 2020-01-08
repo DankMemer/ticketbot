@@ -10,7 +10,7 @@ export const handleCommand: Handler = async function (msg) {
     !guildMember ||
     !guildMember.roles.includes(this.opts.roles.mods) ||
     (msg.channel.type === 0 && msg.channel.id !== this.opts.channels.modCommands) ||
-    !msg.content.startsWith(this.opts.prefix)
+    !msg.content.toLowerCase().startsWith(this.opts.prefix)
   ) {
     return;
   }
