@@ -14,16 +14,13 @@ export const tagAutoresponse: Handler = async function (msg) {
   }
 
   msg.delete().catch(() => void 0);
+  const embed = { embed: TagAutoresponseRenderer.render(msg.author) };
 
   try {
     const dmChannel = await this.getDMChannel(msg.author.id);
-    await dmChannel.createMessage({
-      embed: TagAutoresponseRenderer.render(msg.author)
-    });
+    await dmChannel.createMessage(embed);
   } catch (_) {
-    const response = await msg.channel.createMessage({
-      embed: TagAutoresponseRenderer.render(msg.author)
-    });
+    const response = await msg.channel.createMessage(embed);
     setTimeout(() => {
       response.delete();
     }, 3000);
