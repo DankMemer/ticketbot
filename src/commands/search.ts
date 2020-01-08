@@ -1,0 +1,20 @@
+import { Command, Paginated, CommandParams, CommandOutput } from './Command';
+import { TicketRenderer } from '../renderers';
+
+export default class SearchCommand implements Command {
+  name = 'search';
+  help = '<query> [page (defaults to last page)]'
+
+  @Paginated({ resultsPerPage: 5, reversed: true })
+  public async execute({ db, args }: CommandParams): Promise<CommandOutput> {
+    const query = args.join(' ').trim();
+    if (!query) {
+      return 'Provide a search query and try again.';
+    }
+
+    const tickets = await db.tickets.searchTickets(query);
+    return tickets.length === 0
+      ? `No tickets found for query \`${query}\`.`
+      : TicketRenderer.renderTickets(tickets);
+  }
+}

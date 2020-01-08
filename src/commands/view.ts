@@ -3,6 +3,7 @@ import { TicketRenderer } from '../renderers';
 
 export default class ViewCommand implements Command {
   name = 'view';
+  help = '<ticket ID>';
 
   public async execute({ client, db, args }: CommandParams): Promise<CommandOutput> {
     const ticket = await db.tickets.getTicket(+args[0]);
@@ -10,6 +11,6 @@ export default class ViewCommand implements Command {
       return `I couldn't find a ticket with ID ${args[0]}`;
     }
 
-    return TicketRenderer.render(ticket, client.users.get(ticket.userID), TicketRenderer.States.OPEN);
+    return TicketRenderer.renderTicket(ticket, client.users.get(ticket.userID), TicketRenderer.States.OPEN);
   }
 }

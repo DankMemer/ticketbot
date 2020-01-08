@@ -22,11 +22,15 @@ export default class Tickets extends GenericTable {
   }
 
   public async getTickets(): Promise<Ticket[]> {
-    return this.collection.find({ currentID: { $exists: false } }).toArray();
+    return this.find({ currentID: { $exists: false } });
   }
 
   public async getTicketsByUser(userID: string): Promise<Ticket[]> {
-    return this.collection.find({ userID }).toArray();
+    return this.find({ userID });
+  }
+
+  public async searchTickets(query: string): Promise<Ticket[]> {
+    return this.find({ content: RegExp(query, 'i') });
   }
 
   public async updateTicket(_id: Ticket['_id'], newContent: Ticket['content']): Promise<void> {

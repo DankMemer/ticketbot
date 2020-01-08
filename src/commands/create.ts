@@ -26,7 +26,7 @@ export default class CreateCommand implements Command {
     await Promise.all(
       ticket.recipients.map((recipient, idx) =>
         client.createMessage(recipient.channelID, {
-          embed: TicketRenderer.render(ticket, msg.author, TicketRenderer.States.OPEN)
+          embed: TicketRenderer.renderTicket(ticket, msg.author, TicketRenderer.States.OPEN)
         })
           .then(message => {
             recipient.messageID = message.id;

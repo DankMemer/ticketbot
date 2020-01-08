@@ -8,6 +8,10 @@ export default class GenericTable {
     this.collection = collection;
   }
 
+  protected find (query) {
+    return this.collection.find(query).toArray();
+  }
+
   public async getIncrementingID(): Promise<number> {
     if (!this.currentID) {
       const currentIDResult = await this.collection.findOne({ currentID: { $exists: true } });

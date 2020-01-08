@@ -7,3 +7,4 @@ export { default as UpdateCommand } from './update';
 export { default as DeleteCommand } from './delete';
 export { default as PicCommand } from './pic';
 export { default as ViewCommand } from './view';
+export { default as SearchCommand } from './search';
