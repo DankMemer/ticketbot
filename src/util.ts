@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { TicketBotOptions } from './Client';
 import { DatabaseConfig } from './Database';
-import { Defaults } from './Constants';
+import { Defaults, BAD_WORDS } from './Constants';
 
 export const dateToString = (time: Date): string =>
   new Date(time)
@@ -30,4 +30,26 @@ export const paginate = <T>(
     (pageIndex + 1) * resultsPerPage
   );
 
+export const findBad = (input: string): string | null => {
+  input = input.toLowerCase();
+
+  for (const badWord of BAD_WORDS) {
+    if (input.includes(badWord)) {
+      return badWord;
+    }
+  }
+
+  return null;
+};
+
+export const highlight = (input: string, segment: string): string => {
+  return input.replace(
+    RegExp(`(${segment})`, 'g'),
+    (sub) => `[**__${sub}__**](https://\u200b "\u200b")`
+  );
+}
+
 export type Awaitable<T> = Promise<T> | T;
+
+const Pass = () => void 0;
+

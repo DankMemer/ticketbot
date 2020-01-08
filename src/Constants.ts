@@ -56,3 +56,21 @@ export const CatPics: string[] = [
   'https://i.imgur.com/xtJ3Rmf.jpg',
   'https://i.imgur.com/n6VxRDH.jpg'
 ];
+
+export const BAD_WORDS: string[] = [
+  'nigg',
+  'negro',
+  'etard',
+  'higger',
+  'rape',
+  'commit suicide',
+  'hang myself',
+  'nigward',
+  'igga',
+  'killing myself',
+  'kneegrow',
+  'nibba',
+  'fag',
+  'kys',
+  'testing'
+];
