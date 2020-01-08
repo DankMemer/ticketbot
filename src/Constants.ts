@@ -54,7 +54,14 @@ export const CatPics: string[] = [
   'https://i.imgur.com/dnprb6z.jpg',
   'https://i.imgur.com/dVQidha.jpg',
   'https://i.imgur.com/xtJ3Rmf.jpg',
-  'https://i.imgur.com/n6VxRDH.jpg'
+  'https://i.imgur.com/n6VxRDH.jpg',
+  'https://i.imgur.com/1NNDTQM.jpg',
+  'https://i.imgur.com/o3BRy7D.jpg',
+  'https://i.imgur.com/ngXtzPf.jpg',
+  'https://i.imgur.com/5dM7xuy.jpg',
+  'https://i.imgur.com/91QYbWW.jpg',
+  'https://i.imgur.com/LZmzCXh.jpg',
+  'https://i.imgur.com/nZRUF81.jpg?1'
 ];
 
 export enum EmbedLimits {
