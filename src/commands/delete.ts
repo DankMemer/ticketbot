@@ -4,7 +4,7 @@ import { TicketRenderer } from '../renderers';
 
 export default class DeleteCommand implements Command {
   name = 'delete';
-  aliases = ['remove', 'del'];
+  aliases = ['remove', 'del', 'close'];
   help = '<ticket id> [--override]';
   public async execute({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
     if (!args[0]) {

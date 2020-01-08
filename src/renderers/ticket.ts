@@ -10,8 +10,10 @@ enum TicketRenderStates {
 
 export const TicketRenderer: Renderer = {
   render: (ticket: Ticket, user: User, state: TicketRenderStates, closer?: User): EmbedOptions => ({
-    title: `New ticket: #${ticket._id}`,
-    color: state === TicketRenderStates.OPEN ? 0xd48f1c : 0xca2d36,
+    title: `Ticket: #${ticket._id}`,
+    color: state === TicketRenderStates.OPEN
+      ? 0xd48f1c
+      : 0xca2d36,
     fields: [ {
       name: 'Ticket creator',
       value: user.username

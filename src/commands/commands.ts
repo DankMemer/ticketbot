@@ -6,3 +6,4 @@ export { default as ListCommand } from './list';
 export { default as UpdateCommand } from './update';
 export { default as DeleteCommand } from './delete';
 export { default as PicCommand } from './pic';
+export { default as ViewCommand } from './view';

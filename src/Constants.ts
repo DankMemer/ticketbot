@@ -56,3 +56,7 @@ export const CatPics: string[] = [
   'https://i.imgur.com/xtJ3Rmf.jpg',
   'https://i.imgur.com/n6VxRDH.jpg'
 ];
+
+export enum EmbedLimits {
+  MAX_FIELD_VALUE = 1024,
+}
