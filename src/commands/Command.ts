@@ -35,7 +35,7 @@ export const Paginated = ({ resultsPerPage, reversed }: { resultsPerPage: number
   (target: Command, _, descriptor: CommandExecutePropertyDescriptor): void => {
     const originalFunc = target.execute;
     descriptor.value = async ({ args, ...rest }): Promise<EmbedOptions> => {
-      const providedIndex = Number.isNaN(+args[args.length - 1])
+      const providedIndex = (Number.isNaN(+args[args.length - 1]) || args[args.length - 1].length > 14)
         ? NaN
         : Number(args.pop()) - 1;
       const result = await originalFunc.call(target, { args, ...rest }) as EmbedOptions;
