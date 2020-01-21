@@ -1,7 +1,7 @@
-import { Command, Paginated, CommandParams, CommandOutput } from './Command';
+import { ICommand, Paginated, CommandParams, CommandOutput } from './Command';
 import { TicketRenderer } from '../renderers';
 
-export default class TodoCommand implements Command {
+export default class TodoCommand implements ICommand {
   name = 'todo';
   help = '[page (defaults to last)]'
 

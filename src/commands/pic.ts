@@ -1,8 +1,8 @@
-import { Command, CommandOutput } from './Command';
+import { ICommand, CommandOutput } from './Command';
 import { randomInArray } from '../util';
 import { CatPics, Emojis } from '../Constants';
 
-export default class PicCommand implements Command {
+export default class PicCommand implements ICommand {
   name = 'pic';
   aliases = ['floof'];
   execute = (): CommandOutput => ({

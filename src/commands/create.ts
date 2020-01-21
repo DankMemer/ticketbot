@@ -1,9 +1,9 @@
-import { Command, CommandParams, CommandOutput } from './Command';
+import { ICommand, CommandParams, CommandOutput } from './Command';
 import { Ticket } from '../Database/tables/Tickets';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
 
-export default class CreateCommand implements Command {
+export default class CreateCommand implements ICommand {
   name = 'create';
   help = '<content>';
   public async execute({ client, db, msg, args }: CommandParams): Promise<CommandOutput> {

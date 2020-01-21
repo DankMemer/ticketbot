@@ -1,8 +1,8 @@
 import { EmbedOptions } from 'eris';
-import { Command, Context, CommandOutput } from './Command';
+import { ICommand, Context, CommandOutput } from './Command';
 import { Emojis } from '../Constants';
 
-export default class HelpCommand implements Command {
+export default class HelpCommand implements ICommand {
   private renderedResult: EmbedOptions;
 
   name = 'help';

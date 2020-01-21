@@ -1,8 +1,8 @@
-import { Command, CommandParams, CommandOutput } from './Command';
+import { ICommand, CommandParams, CommandOutput } from './Command';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
 
-export default class DeleteCommand implements Command {
+export default class DeleteCommand implements ICommand {
   name = 'delete';
   aliases = ['remove', 'del', 'close'];
   help = '<ticket id> [--override]';

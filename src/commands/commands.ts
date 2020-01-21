@@ -1,10 +1,19 @@
-export { default as HelpCommand } from './help';
-export { default as PingCommand } from './ping';
-export { default as CreateCommand } from './create';
-export { default as TodoCommand } from './todo';
-export { default as ListCommand } from './list';
-export { default as UpdateCommand } from './update';
-export { default as DeleteCommand } from './delete';
-export { default as PicCommand } from './pic';
-export { default as ViewCommand } from './view';
-export { default as SearchCommand } from './search';
+import { ICommand } from './Command';
+import { promises as fs } from 'fs';
+import * as path from 'path';
+
+const commands = [];
+const nonCommands = [ 'Command.ts', 'commands.ts', 'index.ts' ];
+
+export default {
+  commands,
+
+  async populate() {
+    for (const filename of await fs.readdir(__dirname)) {
+      if (!nonCommands.includes(filename)) {
+        const mdl = await import(path.join(__dirname, filename));
+        commands.push(mdl.default);
+      }
+    }
+  }
+};

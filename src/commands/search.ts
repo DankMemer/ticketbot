@@ -1,8 +1,9 @@
-import { Command, Paginated, CommandParams, CommandOutput } from './Command';
+import { ICommand, Paginated, CommandParams, CommandOutput } from './Command';
 import { TicketRenderer } from '../renderers';
 
-export default class SearchCommand implements Command {
+export default class SearchCommand implements ICommand {
   name = 'search';
+  aliases = ['find'];
   help = '<query> [page (defaults to last page)]'
 
   @Paginated({ resultsPerPage: 5, reversed: true })

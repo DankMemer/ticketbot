@@ -5,7 +5,7 @@ import { paginate, Awaitable } from '../util';
 
 export type Context = {
   client: TicketBot;
-  commands: Map<string, Command>;
+  commands: Map<string, ICommand>;
   db: Database;
 };
 
@@ -16,23 +16,24 @@ export type CommandParams = {
 
 export type CommandOutput = string | EmbedOptions;
 
-export interface Command {
-  new?(): Command;
+export interface ICommand {
+  new?(): ICommand;
 
   name: string;
   aliases?: string[];
   help?: string;
+  raw?: boolean;
 
   execute(params?: CommandParams): Awaitable<CommandOutput>;
   onLoad?(params?: Context): void;
 }
 
 interface CommandExecutePropertyDescriptor extends PropertyDescriptor {
-  value?: Command['execute'];
+  value?: ICommand['execute'];
 }
 
 export const Paginated = ({ resultsPerPage, reversed }: { resultsPerPage: number; reversed: boolean }) =>
-  (target: Command, _, descriptor: CommandExecutePropertyDescriptor): void => {
+  (target: ICommand, _, descriptor: CommandExecutePropertyDescriptor): void => {
     const originalFunc = target.execute;
     descriptor.value = async ({ args, ...rest }): Promise<EmbedOptions> => {
       const providedIndex = (Number.isNaN(+args[args.length - 1]) || args[args.length - 1].length > 14)

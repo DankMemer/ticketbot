@@ -9,10 +9,17 @@ export type TicketBotOptions = {
   channels: {
     support: string[];
     modCommands: string;
+    devCategory: string;
   };
   roles: {
     mods: string;
     formerMods: string;
+  };
+  dmNotifications: {
+    [id: string]: {
+      users: string[];
+      dmChannelID: string;
+    };
   };
   prefix: string;
   db: Database;
