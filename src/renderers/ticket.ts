@@ -1,6 +1,6 @@
 import { Ticket } from '../Database/tables/Tickets';
 import { User, EmbedOptions } from 'eris';
-import { dateToString } from '../util';
+import { dateToString } from '../lib/util';
 import { EmbedLimits } from '../Constants';
 
 const TRUNCATE_MSG = '\n\n`...` [see full ticket with `gucci view`]';

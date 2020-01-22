@@ -4,15 +4,25 @@ import * as events from './events';
 import Database from '../Database';
 
 export type TicketBotOptions = {
-  token: string;
+  keys: {
+    discord: string;
+    youtube: string;
+  };
   guildID: string;
   channels: {
     support: string[];
     modCommands: string;
+    devCategory: string;
   };
   roles: {
     mods: string;
     formerMods: string;
+  };
+  dmNotifications: {
+    [id: string]: {
+      users: string[];
+      dmChannelID: string;
+    };
   };
   prefix: string;
   db: Database;
@@ -26,7 +36,7 @@ export default class TicketBot extends Client {
   public context: Context;
 
   constructor(opts: TicketBotOptions) {
-    super(opts.token, {
+    super(opts.keys.discord, {
       getAllUsers: !opts.development
     });
 
