@@ -1,6 +1,6 @@
 import Database from './Database';
 import TicketBot from './Client';
-import { loadConfig } from './util';
+import { loadConfig } from './lib/util';
 
 const config = loadConfig();
 

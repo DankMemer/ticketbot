@@ -1,7 +1,7 @@
 import { ICommand, CommandParams, CommandOutput } from './Command';
 import { Emojis } from '../Constants';
 import { TicketRenderer } from '../renderers';
-import { dateToString } from '../util';
+import { dateToString } from '../lib/util';
 
 export default class UpdateCommand implements ICommand {
   name = 'update';

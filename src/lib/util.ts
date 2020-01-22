@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import { TicketBotOptions } from './Client';
-import { DatabaseConfig } from './Database';
-import { Defaults } from './Constants';
+import { TicketBotOptions } from '../Client';
+import { DatabaseConfig } from '../Database';
+import { Defaults } from '../Constants';
 
 const markdownCharRegex = /(\*|_|~|`|\|\||<|>)/g;
 const ordinalSuffixes = ['th', 'st', 'nd', 'rd'];
@@ -22,7 +22,7 @@ export const loadConfig = (): {
   clientConfig: TicketBotOptions;
   dbConfig: DatabaseConfig;
 } =>
-  JSON.parse(readFileSync(resolve(__dirname, '..', 'config.json'), 'utf8'));
+  JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'config.json'), 'utf8'));
 
 export const paginate = <T>(
   arr: T[],

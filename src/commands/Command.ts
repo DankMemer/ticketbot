@@ -1,7 +1,7 @@
 import { Message, EmbedOptions } from 'eris';
 import TicketBot from '../Client';
 import Database from '../Database';
-import { paginate, Awaitable } from '../util';
+import { paginate, Awaitable } from '../lib/util';
 
 export type Context = {
   client: TicketBot;
