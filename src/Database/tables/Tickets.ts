@@ -1,16 +1,13 @@
-import GenericTable from './GenericTable';
+import { GenericTable, GenericEntity } from './GenericTable';
 
 export type Ticket = {
-  _id?: number;
   userID: string;
   content: string;
   createdAt?: Date;
   recipients: Array<{ channelID: string; messageID: string }>;
-};
+} & GenericEntity;
 
-export default class Tickets extends GenericTable {
-  currentTicketID: number;
-
+export default class Tickets extends GenericTable<Ticket> {
   public async createTicket(ticket: Ticket): Promise<Ticket['_id']> {
     ticket.createdAt = new Date();
     await this.collection.insertOne(ticket);
@@ -18,11 +15,11 @@ export default class Tickets extends GenericTable {
   }
 
   public async getTicket(_id: Ticket['_id']): Promise<Ticket> {
-    return this.collection.findOne({ _id });
+    return this.get(_id);
   }
 
   public async getTickets(): Promise<Ticket[]> {
-    return this.find({ currentID: { $exists: false } });
+    return this.getAll();
   }
 
   public async getTicketsByUser(userID: string): Promise<Ticket[]> {

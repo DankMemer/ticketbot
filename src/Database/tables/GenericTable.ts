@@ -1,6 +1,10 @@
 import { Collection } from 'mongodb';
 
-export default class GenericTable {
+export type GenericEntity = {
+  _id?: number;
+}
+
+export class GenericTable<Entity extends GenericEntity> {
   public collection: Collection;
   protected currentID: number;
 
@@ -8,8 +12,19 @@ export default class GenericTable {
     this.collection = collection;
   }
 
-  protected find (query) {
-    return this.collection.find(query).toArray();
+  protected get(_id: Entity['_id']): Promise<Entity> {
+    return this.collection.findOne({ _id });
+  }
+
+  protected getAll(): Promise<Entity[]> {
+    return this.find({});
+  }
+
+  protected find(query: object = {}): Promise<Entity[]> {
+    return this.collection.find({
+      currentID: { $exists: false },
+      ...query
+    }).toArray();
   }
 
   public async getIncrementingID(): Promise<number> {
