@@ -1,6 +1,7 @@
 import { Message, VoiceConnection } from 'eris';
 import TicketBot from './Client';
 import ytdl from 'ytdl-core';
+import HTTP from './lib/http';
 
 export type Song = {
   url: string;
@@ -36,6 +37,20 @@ export const musicHandler = {
   async playOrQueue(url: string, client: TicketBot, msg: Message): Promise<QueueResult> {
     if (!msg.member.voiceState) {
       return { status: QueueResults.NOT_IN_CHANNEL };
+    }
+
+    if (!ytdl.validateID(url)) {
+      const { body } = await HTTP.get('https://www.googleapis.com/youtube/v3/search')
+        .addQuery('maxResults', 1)
+        .addQuery('part', 'id')
+        .addQuery('key', client.opts.keys.youtube)
+        .addQuery('q', url);
+
+      if (body.items.length === 0) {
+        return { status: QueueResults.NOT_FOUND };
+      }
+
+      url = `https://www.youtube.com/watch?v=${body.items[0].id.videoId}`;
     }
 
     const res = await ytdl.getBasicInfo(url).catch(() => {});

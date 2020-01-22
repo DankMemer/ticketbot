@@ -4,7 +4,10 @@ import * as events from './events';
 import Database from '../Database';
 
 export type TicketBotOptions = {
-  token: string;
+  keys: {
+    discord: string;
+    youtube: string;
+  };
   guildID: string;
   channels: {
     support: string[];
@@ -33,7 +36,7 @@ export default class TicketBot extends Client {
   public context: Context;
 
   constructor(opts: TicketBotOptions) {
-    super(opts.token, {
+    super(opts.keys.discord, {
       getAllUsers: !opts.development
     });
 
