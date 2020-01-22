@@ -5,7 +5,7 @@ export default class SkipCommand implements ICommand {
   name = 'skip';
   aliases = ['next'];
 
-  public async execute({ msg, args, client }: CommandParams): Promise<CommandOutput> {
+  public async execute({ msg, client }: CommandParams): Promise<CommandOutput> {
     if (!musicHandler.state.currentlyPlaying) {
       return 'Currently not playing anything; nothing to skip';
     }

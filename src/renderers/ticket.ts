@@ -10,7 +10,7 @@ enum TicketRenderStates {
 }
 
 export const TicketRenderer = {
-  truncate (content: string): string {
+  truncate(content: string): string {
     if (content.length < EmbedLimits.MAX_FIELD_VALUE) {
       return content;
     }
@@ -37,7 +37,7 @@ export const TicketRenderer = {
     } ]
   }),
 
-  renderTickets: (tickets: Ticket[]) => ({
+  renderTickets: (tickets: Ticket[]): EmbedOptions => ({
     title: 'Open Tickets',
     fields: tickets
       .sort((a, b) => a._id - b._id)

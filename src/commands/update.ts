@@ -27,7 +27,7 @@ export default class UpdateCommand implements ICommand {
     }
 
     if (append) {
-      ticket.content = ticket.content.trim() + `\n\n*--- Appended at ${dateToString(new Date())} ---*\n${newContent}`
+      ticket.content = ticket.content.trim() + `\n\n*--- Appended at ${dateToString(new Date())} ---*\n${newContent}`;
     } else {
       ticket.content = newContent;
     }

@@ -4,7 +4,6 @@ import https from 'https';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import url from 'url';
 
-
 export type HTTPResult = {
   raw: Buffer;
   body: any;
@@ -12,7 +11,7 @@ export type HTTPResult = {
   statusCode: number;
   statusText: string;
   headers: IncomingHttpHeaders;
-}
+};
 
 export default class HTTP implements Promise<HTTPResult> {
   private res: Promise<any>;
@@ -31,7 +30,7 @@ export default class HTTP implements Promise<HTTPResult> {
 
   public addQuery(key: string, value: string | number): this;
   public addQuery(query: object): this;
-  public addQuery(key: string | object, value?: string | number) {
+  public addQuery(key: string | object, value?: string | number): this {
     const mutation = typeof key === 'string' ? { [key]: value } : key;
     this.query = { ...this.query, ...mutation };
     return this;
@@ -39,13 +38,13 @@ export default class HTTP implements Promise<HTTPResult> {
 
   public addHeader(key: string, value: string): this;
   public addHeader(header: object): this;
-  public addHeader(key: string | object, value?: string) {
+  public addHeader(key: string | object, value?: string): this {
     const mutation = typeof key === 'string' ? { [key.toLowerCase()]: value } : key;
     this.headers = { ...this.headers, ...mutation };
     return this;
   }
 
-  public send(data: object | string | Buffer) {
+  public send(data: object | string | Buffer): this {
     if (data instanceof Buffer) {
       this.data = data;
     } else if (typeof data === 'string') {
@@ -63,6 +62,7 @@ export default class HTTP implements Promise<HTTPResult> {
 
   private execute(): Promise<HTTPResult> {
     return new Promise((resolve, reject) => {
+      // eslint-disable-next-line prefer-const
       let { method, uri, headers, query, data } = this;
 
       if (Object.keys(query).length !== 0) {
@@ -81,7 +81,7 @@ export default class HTTP implements Promise<HTTPResult> {
         res.once('end', () => {
           const raw = Buffer.concat(chunks);
 
-          const body: HTTPResult['body'] = (() => {
+          const body: HTTPResult['body'] = ((): any => {
             if ((/application\/json/).test(res.headers['content-type'])) {
               try {
                 return JSON.parse(raw.toString());
@@ -133,15 +133,15 @@ export default class HTTP implements Promise<HTTPResult> {
     );
   }
 
-  public catch(onrejected) {
+  public catch(onrejected): Promise<HTTPResult> {
     return this.then(null, onrejected);
   }
 
-  public finally(onfinally: () => Promise<HTTPResult> & void) {
+  public finally(onfinally: () => Promise<HTTPResult> & void): Promise<HTTPResult> {
     return this.then(onfinally, onfinally);
   }
 
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'todo';
   }
 

@@ -15,7 +15,7 @@ export enum QueueResults {
   PLAYING,
   NOT_FOUND,
   NOT_IN_CHANNEL
-};
+}
 
 export type QueueResult = Partial<{
   status: QueueResults;
@@ -68,7 +68,7 @@ export const musicHandler = {
     return musicHandler.queue(song, client, await client.joinVoiceChannel(msg.member.voiceState.channelID));
   },
 
-  async queue(song: Song, client: TicketBot, conn: VoiceConnection) {
+  async queue(song: Song, client: TicketBot, conn: VoiceConnection): Promise<QueueResult> {
     const position = musicHandler.state.songQueue.push(song);
 
     if (!conn.playing) {
@@ -81,7 +81,7 @@ export const musicHandler = {
     }
   },
 
-  async consume(client: TicketBot, conn: VoiceConnection) {
+  async consume(client: TicketBot, conn: VoiceConnection): Promise<void> {
     const song = musicHandler.state.songQueue.shift();
     musicHandler.state.currentlyPlaying = song;
 
@@ -99,4 +99,4 @@ export const musicHandler = {
       musicHandler.consume(client, conn);
     });
   }
-}
+};

@@ -2,7 +2,7 @@ import { Collection } from 'mongodb';
 
 export type GenericEntity = {
   _id?: number;
-}
+};
 
 export class GenericTable<Entity extends GenericEntity> {
   public collection: Collection;

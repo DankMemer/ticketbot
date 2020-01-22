@@ -3,7 +3,7 @@ import { TicketRenderer } from '../renderers';
 
 export default class ListCommand implements ICommand {
   name = 'list';
-  help = '[user (id or mention)] [page (defaults to last)]'
+  help = '[user (id or mention)] [page (defaults to last)]';
 
   @Paginated({ resultsPerPage: 5, reversed: false })
   public async execute({ msg, args, db }: CommandParams): Promise<CommandOutput> {

@@ -4,7 +4,7 @@ import { TicketRenderer } from '../renderers';
 export default class SearchCommand implements ICommand {
   name = 'search';
   aliases = ['find'];
-  help = '<query> [page (defaults to last page)]'
+  help = '<query> [page (defaults to last page)]';
 
   @Paginated({ resultsPerPage: 5, reversed: true })
   public async execute({ db, args }: CommandParams): Promise<CommandOutput> {
