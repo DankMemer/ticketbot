@@ -1,3 +1,5 @@
+export const REPO_URL: string = 'https://github.com/dankmemer/ticketbot';
+
 export enum Defaults {
   RESULTS_PER_PAGE = 5,
 }
