@@ -1,5 +1,7 @@
 import Event from './Event';
 import { PlayerManager } from 'eris-lavalink';
+import { register } from 'prom-client';
+import { createServer } from 'http';
 
 export const onceReady: Event = {
   packetName: 'ready',
@@ -12,5 +14,10 @@ export const onceReady: Event = {
         userId: this.user.id
       });
     }
+
+    createServer((_, res) => {
+      res.writeHead(200, { 'Content-Type': register.contentType });
+      res.end(register.metrics());
+    }).listen(8081);
   }
 };
