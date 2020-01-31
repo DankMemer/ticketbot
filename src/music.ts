@@ -84,7 +84,8 @@ export const musicHandler = {
   async consume(client: TicketBot, conn: VoiceConnection): Promise<void> {
     const song = musicHandler.state.songQueue.shift();
     musicHandler.state.currentlyPlaying = song;
-
+    
+    await conn.setVolume(0.5);
     await conn.play(ytdl(song.url, { filter: 'audioonly' }));
     conn.on('end', () => {
       if (this.state.repeat) {
