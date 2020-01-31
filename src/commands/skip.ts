@@ -14,8 +14,8 @@ export default class SkipCommand implements ICommand {
       return 'Join the voice channel to skip something';
     }
 
-    const conn = await client.joinVoiceChannel(msg.member.voiceState.channelID);
-    await conn.stopPlaying();
+    const player = client.voiceConnections.get((msg.channel as any).guild.id)
+    await musicHandler.consume(client, player);
     return 'Skipped';
   }
 }

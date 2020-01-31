@@ -1,10 +1,10 @@
-import { Message, VoiceConnection } from 'eris';
+import { Message, VoiceConnection, GuildChannel } from 'eris';
 import TicketBot from './Client';
-import ytdl from 'ytdl-core';
 import HTTP from './lib/http';
 
 export type Song = {
   url: string;
+  trackID: string;
   title: string;
   queuedBy: string;
   thumbnail: string;
@@ -34,38 +34,35 @@ export const musicHandler = {
     currentlyPlaying: Song;
   },
 
-  async playOrQueue(url: string, client: TicketBot, msg: Message): Promise<QueueResult> {
-    if (!msg.member.voiceState) {
+  async playOrQueue(query: string, client: TicketBot, msg: Message): Promise<QueueResult> {
+    if (!msg.member.voiceState.channelID) {
       return { status: QueueResults.NOT_IN_CHANNEL };
     }
 
-    if (!ytdl.validateID(url)) {
-      const { body } = await HTTP.get('https://www.googleapis.com/youtube/v3/search')
-        .addQuery('maxResults', 1)
-        .addQuery('part', 'id')
-        .addQuery('key', client.opts.keys.youtube)
-        .addQuery('q', url);
+    const { body } = await HTTP.get('http://localhost:2333/loadtracks')
+      .addQuery('identifier', `ytsearch:${query}`)
+      .addHeader('Authorization', client.opts.keys.lavalink)
+      .addHeader('Accept', 'application/json');
 
-      if (body.items.length === 0) {
-        return { status: QueueResults.NOT_FOUND };
-      }
-
-      url = `https://www.youtube.com/watch?v=${body.items[0].id.videoId}`;
-    }
-
-    const res = await ytdl.getBasicInfo(url).catch(() => {});
-    if (!res) {
+    if (body.tracks.length === 0) {
       return { status: QueueResults.NOT_FOUND };
     }
-
+    
+    const track = body.tracks[0];
     const song: Song = {
-      url,
-      title: res.player_response.videoDetails.title,
-      thumbnail: res.player_response.videoDetails.thumbnail.thumbnails[0].url,
+      trackID: track.track,
+      url: track.info.uri,
+      title: track.info.title,
+      thumbnail: 'https://cdn.discordapp.com/attachments/470338293880586250/672686569185869824/unknown.png',
       queuedBy: msg.author.id
     };
 
-    return musicHandler.queue(song, client, await client.joinVoiceChannel(msg.member.voiceState.channelID));
+    return musicHandler.queue(
+      song,
+      client,
+      client.voiceConnections.get((msg.channel as GuildChannel).guild.id) ||
+        await client.joinVoiceChannel(msg.member.voiceState.channelID)
+    );
   },
 
   async queue(song: Song, client: TicketBot, conn: VoiceConnection): Promise<QueueResult> {
@@ -85,16 +82,22 @@ export const musicHandler = {
     const song = musicHandler.state.songQueue.shift();
     musicHandler.state.currentlyPlaying = song;
     
-    await conn.setVolume(0.5);
-    await conn.play(ytdl(song.url, { filter: 'audioonly' }));
-    conn.on('end', () => {
+    // await conn.setVolume(40);
+    await conn.play(song.trackID);
+    conn.once('end', async ({ reason }) => {
+      if (reason === 'REPLACED') {
+        return;
+      }
+
       if (this.state.repeat) {
         return musicHandler.queue(song, client, conn);
       }
 
       if (this.state.songQueue.length === 0) {
         musicHandler.state.currentlyPlaying = null;
-        return client.leaveVoiceChannel(conn.channelID);
+        const channelID = (conn as any).channelId;
+        await (conn as any).stop();
+        return client.leaveVoiceChannel(channelID);
       }
 
       musicHandler.consume(client, conn);

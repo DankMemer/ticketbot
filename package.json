@@ -19,10 +19,10 @@
   "homepage": "https://github.com/dankmemer/ticketbot#readme",
   "dependencies": {
     "eris": "^0.11.2",
+    "eris-lavalink": "^1.0.2",
     "mongodb": "^3.4.1",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.4",
-    "ytdl-core": "^1.0.7"
+    "typescript": "^3.7.4"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

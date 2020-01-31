@@ -7,6 +7,7 @@ export type TicketBotOptions = {
   keys: {
     discord: string;
     youtube: string;
+    lavalink: string;
   };
   guildID: string;
   appealHookID: string;

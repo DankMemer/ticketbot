@@ -4,15 +4,15 @@ import { getOrdinal } from '../lib/util';
 
 export default class PlayCommand implements ICommand {
   name = 'play';
-  help = '<URL>';
+  help = '<query or URL>';
 
   public async execute({ msg, args, client }: CommandParams): Promise<CommandOutput> {
-    const url = args.join(' ');
-    const res = await musicHandler.playOrQueue(url, client, msg);
+    const query = args.join(' ');
+    const res = await musicHandler.playOrQueue(query, client, msg);
 
     switch (res.status) {
       case QueueResults.NOT_FOUND:
-        return `Couldn't find a song with query \`${url}\``;
+        return `Couldn't find a song with query \`${query}\``;
 
       case QueueResults.NOT_IN_CHANNEL:
         return `Join a voice channel to queue something`;
