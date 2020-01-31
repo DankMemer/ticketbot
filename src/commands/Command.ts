@@ -32,6 +32,18 @@ interface CommandExecutePropertyDescriptor extends PropertyDescriptor {
   value?: ICommand['execute'];
 }
 
+export const OwnerOnly = <T extends new (...args: any[]) => any>(Target: T) => {
+  return class extends Target implements Partial<ICommand> {
+    public execute({ client, msg, ...rest }: CommandParams): CommandOutput {
+      if (!client.opts.owners.includes(msg.author.id)) {
+        return 'locked to devs';
+      }
+
+      return super.execute({ client, msg, ...rest });
+    }
+  }
+}
+
 export const Paginated = ({ resultsPerPage, reversed }: { resultsPerPage: number; reversed: boolean }) =>
   (target: ICommand, _, descriptor: CommandExecutePropertyDescriptor): void => {
     const originalFunc = target.execute;
