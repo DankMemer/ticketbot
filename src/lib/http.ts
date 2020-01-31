@@ -1,7 +1,7 @@
 import { REPO_URL } from '../Constants';
 import querystring from 'querystring';
 import https from 'https';
-import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
+import { IncomingHttpHeaders, OutgoingHttpHeaders, request } from 'http';
 import url from 'url';
 
 export type HTTPResult = {
@@ -69,7 +69,7 @@ export default class HTTP implements Promise<HTTPResult> {
         uri += `?${querystring.encode(query)}`;
       }
 
-      const req = https.request({
+      const req = (uri.startsWith('https') ? https.request : request)({
         method,
         headers,
         ...url.parse(uri)
