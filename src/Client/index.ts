@@ -9,6 +9,7 @@ export type TicketBotOptions = {
     youtube: string;
   };
   guildID: string;
+  appealHookID: string;
   channels: {
     support: string[];
     modCommands: string;

@@ -6,7 +6,6 @@ export const onMessageCreate: Event = {
   packetName: 'messageCreate',
   async handler(msg: Message) {
     if (
-      msg.author.bot ||
       (msg.channel.type === 0 && msg.channel.guild.id !== this.opts.guildID)
     ) {
       return;

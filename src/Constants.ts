@@ -12,6 +12,10 @@ export enum Emojis {
   GUCCI_PANIC_2 = '<:gucciPANIC2:604019561993469993>',
   GUCCI_SCREAM  = '<:gucciSCREAM:604019562396254238>',
   GUCCI_SIDEEYE = '<:gucciSIDEEYE:604019561536159747>',
+
+  TICK_YES   = 'yes:672674520909217806',
+  TICK_MAYBE = '🟨',
+  TICK_NO    = 'no:672674434871459840',
 }
 
 export const CatPics: string[] = [

@@ -10,6 +10,7 @@ export const handleCommand: Handler = async function (msg) {
     .members.get(msg.author.id);
 
   if (
+    msg.author.bot ||
     !guildMember ||
     !guildMember.roles.includes(this.opts.roles.mods) ||
     (msg.channel.type === 0 && (msg.channel.id !== this.opts.channels.modCommands && msg.channel.parentID !== this.opts.channels.devCategory)) ||

@@ -4,6 +4,7 @@ const carlPrefixes = ['-', '.', '!'];
 
 export const tagAutoresponse: Handler = async function (msg) {
   if (
+    msg.author.bot ||
     !this.opts.channels.support.includes(msg.channel.id) ||
     !carlPrefixes.some(prefix => msg.content.startsWith(prefix)) ||
     msg.member.roles.includes(this.opts.roles.mods) ||
