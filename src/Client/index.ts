@@ -64,7 +64,11 @@ export default class TicketBot extends Client {
 
   public loadEvents(): void {
     for (const event of Object.values(events)) {
-      this.on(event.packetName, event.handler.bind(this));
+      if (event.once) {
+        this.once(event.packetName, event.handler.bind(this));
+      } else {
+        this.on(event.packetName, event.handler.bind(this));
+      }
     }
   }
 }
