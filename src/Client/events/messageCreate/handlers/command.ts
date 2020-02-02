@@ -34,19 +34,21 @@ export const handleCommand: Handler = async function (msg) {
       args,
       ...this.context
     });
-  
-    const opts: MessageContent = {};
-    if (typeof res === 'string') {
-      if (command.raw) {
-        opts.content = res;
+
+    if (res) {
+      const opts: MessageContent = {};
+      if (typeof res === 'string') {
+        if (command.raw) {
+          opts.content = res;
+        } else {
+          opts.embed = { description: res };
+        }
       } else {
-        opts.embed = { description: res };
+        opts.embed = res;
       }
-    } else {
-      opts.embed = res;
+    
+      await msg.channel.createMessage(opts);
     }
-  
-    msg.channel.createMessage(opts);
   } catch (err) {
     console.error(err);
     msg.channel.createMessage({ embed: {
