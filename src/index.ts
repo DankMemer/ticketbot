@@ -3,7 +3,7 @@ const { clientConfig, dbConfig } = loadConfig();
 export const config = clientConfig;
 
 import Database from './Database';
-import { default as TicketBot } from './Client';
+import TicketBot from './Client';
 
 new TicketBot({
   ...clientConfig,
