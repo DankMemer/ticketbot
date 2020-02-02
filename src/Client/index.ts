@@ -32,6 +32,7 @@ export type TicketBotOptions = {
   recipients: string[];
   owners: string[];
   development: boolean;
+  music: boolean;
 };
 
 export default class TicketBot extends Client {
