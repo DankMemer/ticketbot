@@ -19,6 +19,7 @@ export type TicketBotOptions = {
   roles: {
     mods: string;
     formerMods: string;
+    trialMods: string;
   };
   dmNotifications: {
     [id: string]: {
