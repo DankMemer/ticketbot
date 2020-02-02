@@ -1,14 +1,20 @@
 import Handler from './Handler';
 import { TagAutoresponseRenderer } from '../../../../renderers';
 const carlPrefixes = ['-', '.', '!'];
+import { config } from '../../../../';
+
+const TAG_DELETE_WHITELIST = [
+  config.roles.mods,
+  config.roles.formerMods,
+  config.roles.trialMods
+];
 
 export const tagAutoresponse: Handler = async function (msg) {
   if (
     msg.author.bot ||
     !this.opts.channels.support.includes(msg.channel.id) ||
     !carlPrefixes.some(prefix => msg.content.startsWith(prefix)) ||
-    msg.member.roles.includes(this.opts.roles.mods) ||
-    msg.member.roles.includes(this.opts.roles.formerMods) ||
+    TAG_DELETE_WHITELIST.some(roleID => msg.member.roles.includes(roleID)) ||
     msg.content.length === 1
   ) {
     return;
