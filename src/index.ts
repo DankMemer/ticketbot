@@ -1,10 +1,11 @@
-import Database from './Database';
-import TicketBot from './Client';
 import { loadConfig } from './lib/util';
+const { clientConfig, dbConfig } = loadConfig();
+export const config = clientConfig;
 
-const config = loadConfig();
+import Database from './Database';
+import { default as TicketBot } from './Client';
 
 new TicketBot({
-  ...config.clientConfig,
-  db: new Database(config.dbConfig)
+  ...clientConfig,
+  db: new Database(dbConfig)
 }).connect();
