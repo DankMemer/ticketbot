@@ -2,7 +2,7 @@ import { ICommand, CommandParams, CommandOutput } from './Command';
 import { Restricted } from './decorators';
 import { config } from '../';
 import { TextChannel } from 'eris';
-import { codeblock } from '../lib/util';
+import { codeblock, capitalize } from '../lib/util';
 import { Constants } from 'eris';
 
 type ChannelState = Array<{ id: string; name: string; locked: boolean }>;
@@ -78,7 +78,7 @@ export default class LockCommand implements ICommand {
       }
     }
 
-    const prompt = await msg.channel.createMessage({ embed: { description: `Locking (${channels.length}) channels...` } });
+    const prompt = await msg.channel.createMessage({ embed: { description: `${capitalize(mode)}ing (${channels.length}) channels...` } });
 
     for (const channel of channels) {
       await (client.getChannel(channel) as TextChannel).editPermission(
@@ -86,7 +86,7 @@ export default class LockCommand implements ICommand {
         mode === 'lock' ? 0 : SEND_MESSAGES_PERM_BITFIELD,
         mode === 'lock' ? SEND_MESSAGES_PERM_BITFIELD : 0,
         'role',
-        `${mode}ed by ${msg.author.username}`
+        `${capitalize(mode)}ed by ${msg.author.username}`
       );
     }
 
