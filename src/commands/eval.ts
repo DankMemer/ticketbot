@@ -12,18 +12,18 @@ export default class EvalCommand implements ICommand {
 
   credentialRegex: RegExp;
 
-  public onLoad({ client }: Context) {
+  public onLoad({ client }: Context): void {
     this.credentialRegex = RegExp(
       Object.values(client.opts.keys).join('|'),
       'gi'
     );
   }
 
-  public async execute ({ msg, args, ...rest }: CommandParams): Promise<CommandOutput> {
+  public async execute({ msg, args, ...rest }: CommandParams): Promise<CommandOutput> {
     const depthIdx = args.findIndex(arg => arg.startsWith('--depth'));
     let depth = depthIdx === -1
       ? 2
-      : +args.splice(depthIdx, 1)[0].split('=')[1]
+      : +args.splice(depthIdx, 1)[0].split('=')[1];
     let input = args.join(' ');
 
     if (!input) {
@@ -32,6 +32,7 @@ export default class EvalCommand implements ICommand {
 
     let res;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const ctx = { msg, ...rest };
       res = await eval(
         input.indexOf('await') > 0
