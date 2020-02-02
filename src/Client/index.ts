@@ -15,11 +15,19 @@ export type TicketBotOptions = {
     support: string[];
     modCommands: string;
     devCategory: string;
+    botFeedback: string;
+    generalChat: string;
+    premiumChat: string;
+    botCommands: string[];
+    premiumCommands: string;
   };
   roles: {
     mods: string;
     formerMods: string;
     trialMods: string;
+    acceptedRules: string;
+    modManagers: string;
+    directors: string;
   };
   dmNotifications: {
     [id: string]: {
