@@ -1,8 +1,10 @@
-import { ICommand, CommandParams, CommandOutput, OwnerOnly, Context } from './Command';
+import { ICommand, CommandParams, CommandOutput, Context } from './Command';
+import { Restricted } from './decorators';
 import { inspect } from 'util';
 import { codeblock } from '../lib/util';
+import { config } from '../';
 
-@OwnerOnly
+@Restricted({ userIDs: config.owners })
 export default class EvalCommand implements ICommand {
   name = 'eval';
   aliases = ['e'];

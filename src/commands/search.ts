@@ -1,5 +1,6 @@
-import { ICommand, Paginated, CommandParams, CommandOutput } from './Command';
+import { ICommand, CommandParams, CommandOutput } from './Command';
 import { TicketRenderer } from '../renderers';
+import { Paginated } from './decorators';
 
 export default class SearchCommand implements ICommand {
   name = 'search';

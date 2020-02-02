@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 
 const commands = [];
-const nonCommands = [ 'Command.ts', 'commands.ts', 'index.ts' ];
+const nonCommands = [ 'Command.ts', 'commands.ts', 'index.ts', 'decorators' ];
 
 export default {
   commands,
