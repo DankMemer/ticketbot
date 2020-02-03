@@ -1,8 +1,8 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { Restricted } from './decorators';
-import { config } from '../';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { Restricted } from '../decorators';
+import { config } from '../../';
 import { TextChannel } from 'eris';
-import { codeblock, capitalize } from '../lib/util';
+import { codeblock, capitalize } from '../../lib/util';
 import { Constants } from 'eris';
 
 type ChannelState = Array<{ id: string; name: string; locked: boolean }>;

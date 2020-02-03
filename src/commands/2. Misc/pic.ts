@@ -1,6 +1,6 @@
-import { ICommand, CommandOutput } from './Command';
-import { randomInArray } from '../lib/util';
-import { CatPics, Emojis } from '../Constants';
+import { ICommand, CommandOutput } from '../Command';
+import { randomInArray } from '../../lib/util';
+import { CatPics, Emojis } from '../../Constants';
 
 export default class PicCommand implements ICommand {
   name = 'pic';

@@ -1,5 +1,5 @@
 import ViewCommand from './view';
-import { CommandParams, CommandOutput } from './Command';
+import { CommandParams, CommandOutput } from '../Command';
 
 export default class RawCommand extends ViewCommand {
   name = 'raw';

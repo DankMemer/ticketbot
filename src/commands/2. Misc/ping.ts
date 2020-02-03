@@ -1,4 +1,4 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
 
 export default class PingCommand implements ICommand {
   name = 'ping';

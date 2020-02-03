@@ -1,5 +1,5 @@
-import { ICommand, CommandOutput } from './Command';
-import { musicHandler } from '../music';
+import { ICommand, CommandOutput } from '../Command';
+import { musicHandler } from '../../music';
 
 export default class NowPlayingCommand implements ICommand {
   name = 'nowplaying';

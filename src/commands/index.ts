@@ -5,13 +5,17 @@ const commandMap: Map<string, ICommand> = new Map();
 
 commands.populate()
   .then(() => {
-    for (const CommandClass of commands.commands) {
+    for (const [ category, CommandClass ] of commands.commands) {
       const command = new CommandClass() as ICommand;
     
       if (!command.onLoad) {
         command.onLoad = (): void => void 0;
       }
-    
+
+      if (!command.category) {
+        command.category = category;
+      }
+
       if (!command.aliases) {
         command.aliases = [];
       }

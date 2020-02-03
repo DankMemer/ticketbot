@@ -1,6 +1,6 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { TicketRenderer } from '../renderers';
-import { Paginated } from './decorators';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { TicketRenderer } from '../../renderers';
+import { Paginated } from '../decorators';
 
 export default class ListCommand implements ICommand {
   name = 'list';

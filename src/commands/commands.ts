@@ -8,10 +8,14 @@ export default {
   commands,
 
   async populate(): Promise<void> {
-    for (const filename of await fs.readdir(__dirname)) {
-      if (!nonCommands.includes(filename)) {
-        const mdl = await import(path.join(__dirname, filename));
-        commands.push(mdl.default);
+    for (const category of await fs.readdir(__dirname)) {
+      if (nonCommands.includes(category)) {
+        continue;
+      }
+
+      for (const filename of await fs.readdir(path.resolve(__dirname, category))) {
+        const mdl = await import(path.join(__dirname, category, filename));
+        commands.push([category, mdl.default]);
       }
     }
   }

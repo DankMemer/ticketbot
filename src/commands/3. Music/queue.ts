@@ -1,5 +1,5 @@
-import { ICommand, CommandOutput } from './Command';
-import { musicHandler } from '../music';
+import { ICommand, CommandOutput } from '../Command';
+import { musicHandler } from '../../music';
 
 export default class QueueCommand implements ICommand {
   name = 'queue';

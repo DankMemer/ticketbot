@@ -1,6 +1,6 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { TicketRenderer } from '../renderers';
-import { escapeMarkdown } from '../lib/util';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { TicketRenderer } from '../../renderers';
+import { escapeMarkdown } from '../../lib/util';
 
 export default class ViewCommand implements ICommand {
   name = 'view';

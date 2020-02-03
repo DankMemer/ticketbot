@@ -20,6 +20,7 @@ export interface ICommand {
   new?(): ICommand;
 
   name: string;
+  category?: string;
   aliases?: string[];
   help?: string;
   raw?: boolean;

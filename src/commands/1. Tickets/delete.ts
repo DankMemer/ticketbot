@@ -1,6 +1,6 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { Emojis } from '../Constants';
-import { TicketRenderer } from '../renderers';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { Emojis } from '../../Constants';
+import { TicketRenderer } from '../../renderers';
 
 export default class DeleteCommand implements ICommand {
   name = 'delete';

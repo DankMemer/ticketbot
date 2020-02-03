@@ -1,14 +1,15 @@
-import { ICommand, CommandParams, CommandOutput, Context } from './Command';
-import { Restricted } from './decorators';
+import { ICommand, CommandParams, CommandOutput, Context } from '../Command';
+import { Restricted } from '../decorators';
 import { inspect } from 'util';
-import { codeblock } from '../lib/util';
-import { config } from '../';
+import { codeblock } from '../../lib/util';
+import { config } from '../../';
 
 @Restricted({ userIDs: config.owners })
 export default class EvalCommand implements ICommand {
   name = 'eval';
   aliases = ['e'];
-  help = 'go away';
+  help = 'up the shut fuck';
+  raw = true;
 
   credentialRegex: RegExp;
 
@@ -49,25 +50,14 @@ export default class EvalCommand implements ICommand {
     } else {
       do {
         output = inspect(res, { depth: depth-- });
-      } while (depth >= 0 && output.length > 1024);
+      } while (depth >= 0 && output.length > 1950);
     }
 
-    if (input.length > 1000) {
-      input = input.slice(0, 1000) + ' ...';
-    }
-    if (output.length > 1000) {
-      output = output.slice(0, 1000) + ' ...';
+    if (output.length > 1950) {
+      output = output.slice(0, 1950) + ' ...';
     }
 
-    return {
-      fields: [ {
-        name: 'Input',
-        value: codeblock(input, 'javascript')
-      }, {
-        name: 'Output',
-        value: codeblock(output, 'javascript')
-          .replace(this.credentialRegex, 'i think the fuck not you trick ass bitch')
-      } ],
-    };
+    return codeblock(output, 'javascript')
+      .replace(this.credentialRegex, 'i think the fuck not you trick ass bitch');
   }
 }

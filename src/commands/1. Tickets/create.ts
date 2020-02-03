@@ -1,7 +1,7 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { Ticket } from '../Database/tables/Tickets';
-import { Emojis } from '../Constants';
-import { TicketRenderer } from '../renderers';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { Ticket } from '../../Database/tables/Tickets';
+import { Emojis } from '../../Constants';
+import { TicketRenderer } from '../../renderers';
 
 export default class CreateCommand implements ICommand {
   name = 'create';

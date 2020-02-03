@@ -1,6 +1,6 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { musicHandler, QueueResults } from '../music';
-import { getOrdinal } from '../lib/util';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { musicHandler, QueueResults } from '../../music';
+import { getOrdinal } from '../../lib/util';
 
 export default class PlayCommand implements ICommand {
   name = 'play';

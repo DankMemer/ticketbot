@@ -1,7 +1,7 @@
 import UpdateCommand from './update';
-import { CommandParams, CommandOutput } from './Command';
+import { CommandParams, CommandOutput } from '../Command';
 
-export default class RawCommand extends UpdateCommand {
+export default class AppendCommand extends UpdateCommand {
   name = 'append';
   help = '<ticket ID>';
 

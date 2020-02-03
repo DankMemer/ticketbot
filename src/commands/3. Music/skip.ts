@@ -1,5 +1,5 @@
-import { ICommand, CommandParams, CommandOutput } from './Command';
-import { musicHandler } from '../music';
+import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { musicHandler } from '../../music';
 
 export default class SkipCommand implements ICommand {
   name = 'skip';
