@@ -8,7 +8,11 @@ const messages = new Counter({
 });
 
 export const metrics: Handler = async function (msg) {
-  if (msg.member && msg.member.roles.includes(this.opts.roles.mods)) {
+  if (
+    !msg.author.bot &&
+    msg.member &&
+    msg.member.roles.includes(this.opts.roles.mods)
+  ) {
     messages.inc({
       author_id: msg.author.id,
       channel_id: msg.channel.id,
