@@ -1,4 +1,5 @@
 import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { config } from '../../';
 
 export const Restricted = ({ roleIDs = [], userIDs = [] }: {
   roleIDs?: string[];
@@ -6,14 +7,18 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
 }) =>
   <T extends new (...args: any[]) => any>(Target: T) => {
     return class extends Target implements Partial<ICommand> {
-      public execute({ msg, ...rest }: CommandParams): CommandOutput {
+      public execute({ client, msg, ...rest }: CommandParams): CommandOutput {
         if (roleIDs.length === 0 && userIDs.length === 0) {
           throw new Error("Expected at least one filter parameter");
         }
 
+        const member = client.guilds
+          .get(config.guildID).members
+          .get(msg.author.id);
+
         if (
           !userIDs.includes(msg.author.id) &&
-          !(msg.member && msg.member.roles.some(roleID => roleIDs.includes(roleID)))
+          !(member && member.roles.some(roleID => roleIDs.includes(roleID)))
         ) {
           return {
             title: 'Unauthorized to run command',
