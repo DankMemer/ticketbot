@@ -1,5 +1,6 @@
 import { MongoClient, Db } from 'mongodb';
 import Tickets from './tables/Tickets';
+import GrafanaAccounts from './tables/GrafanaAccounts';
 
 export type DatabaseConfig = {
   url: string;
@@ -12,6 +13,7 @@ export default class Database {
   private db: Db;
 
   public tickets: Tickets;
+  public grafanaAccounts: GrafanaAccounts;
 
   constructor(config: DatabaseConfig) {
     this.config = config;
@@ -23,5 +25,6 @@ export default class Database {
     });
     this.db = this.dbConn.db(this.config.dbName);
     this.tickets = new Tickets(this.db.collection('tickets'));
+    this.grafanaAccounts = new GrafanaAccounts(this.db.collection('grafana_accounts'));
   }
 }
