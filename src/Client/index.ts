@@ -8,6 +8,7 @@ export type TicketBotOptions = {
     discord: string;
     youtube: string;
     lavalink: string;
+    grafana: string;
   };
   guildID: string;
   appealHookID: string;
@@ -34,6 +35,10 @@ export type TicketBotOptions = {
       users: string[];
       dmChannelID: string;
     };
+  };
+  metrics: {
+    prometheusPort: number;
+    grafanaURL: string;
   };
   prefix: string;
   db: Database;

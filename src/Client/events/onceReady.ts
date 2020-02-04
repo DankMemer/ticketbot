@@ -19,6 +19,6 @@ export const onceReady: Event = {
     createServer((_, res) => {
       res.writeHead(200, { 'Content-Type': register.contentType });
       res.end(register.metrics());
-    }).listen(7999);
+    }).listen(this.opts.metrics.prometheusPort);
   }
 };
