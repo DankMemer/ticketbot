@@ -11,7 +11,7 @@ import { GrafanaAccount } from '../../Database/tables/GrafanaAccounts';
 export default class GrafanaLoginCommand implements ICommand {
   name = 'grafanalogin';
   aliases = ['gl'];
-  help = 'grafanalogin <create | forgot> [username]';
+  help = '<create | forgot> [username]';
 
   public async execute({ db, msg, args }: CommandParams): Promise<CommandOutput> {
     switch (args.shift()) {
