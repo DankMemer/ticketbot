@@ -12,9 +12,8 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
           throw new Error("Expected at least one filter parameter");
         }
 
-        const member = client.guilds
-          .get(config.guildID).members
-          .get(msg.author.id);
+        const guild = client.guilds.get(config.guildID);
+        const member = guild.members.get(msg.author.id);
 
         if (
           !userIDs.includes(msg.author.id) &&
@@ -25,7 +24,7 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
             description: `This command is locked to the following entities:\n\n${
               userIDs.map(userID => `- <@${userID}> (user)`)
                 .concat(
-                  roleIDs.map(roleID => `- <@&${roleID}> (role)`)
+                  roleIDs.map(roleID => `- ${guild.roles.get(roleID).name} (role)`)
                 )
                 .join('\n')
             }`
