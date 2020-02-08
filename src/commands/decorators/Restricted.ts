@@ -31,7 +31,7 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
           };
         }
 
-        return super.execute({ msg, ...rest });
+        return super.execute({ client, msg, ...rest });
       }
     }
   };
