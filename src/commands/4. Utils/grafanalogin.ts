@@ -7,7 +7,7 @@ import { dateToString, codeblock } from '../../lib/util';
 import { GrafanaAccount } from '../../Database/tables/GrafanaAccounts';
 
 @ChannelLock(ChannelLockTypes.DIRECT_MESSAGES)
-@Restricted({ roleIDs: [ config.roles.directors/*, config.roles.modManagers*/ ] })
+@Restricted({ roleIDs: [ config.roles.directors, config.roles.modManagers ] })
 export default class GrafanaLoginCommand implements ICommand {
   name = 'grafanalogin';
   aliases = ['gl'];
