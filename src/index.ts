@@ -1,11 +1,5 @@
 import { loadConfig } from './lib/util';
-const { clientConfig, dbConfig } = loadConfig();
-export const config = clientConfig;
+export const config = loadConfig();
 
-import Database from './Database';
 import TicketBot from './Client';
-
-new TicketBot({
-  ...clientConfig,
-  db: new Database(dbConfig)
-}).connect();
+new TicketBot(config).connect();

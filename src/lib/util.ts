@@ -18,10 +18,7 @@ export const dateToString = (time: Date): string =>
 export const randomInArray = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
-export const loadConfig = (): {
-  clientConfig: TicketBotOptions;
-  dbConfig: DatabaseConfig;
-} =>
+export const loadConfig = (): TicketBotOptions =>
   JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'config.json'), 'utf8'));
 
 export const paginate = <T>(
@@ -51,5 +48,18 @@ export const capitalize = (text: string): string =>
 
 export const unique = (elem, index, self): boolean =>
   self.indexOf(elem) === index;
+
+export const humanConcatenate: {
+  (...params: string[]);
+  (params: string[]);
+} = (...strings): string => {
+  strings = Array.isArray(strings[0])
+    ? strings[0]
+    : strings;
+
+  return strings.length === 1
+    ? strings[0]
+    : `${strings.slice(0, -1).join(', ')} and ${strings[strings.length - 1]}`;
+};
 
 export type Awaitable<T> = Promise<T> | T;

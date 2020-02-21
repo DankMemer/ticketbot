@@ -9,6 +9,10 @@ export type TicketBotOptions = {
     youtube: string;
     lavalink: string;
     grafana: string;
+    mongo: string;
+    redis: string;
+    rethink: string;
+    dbServerHost: string;
   };
   guildID: string;
   appealHookID: string;
@@ -21,6 +25,8 @@ export type TicketBotOptions = {
     premiumChat: string;
     botCommands: string[];
     premiumCommands: string;
+    betaCommands: string;
+    statusUpdates: string;
   };
   roles: {
     mods: string;
@@ -29,6 +35,7 @@ export type TicketBotOptions = {
     acceptedRules: string;
     modManagers: string;
     directors: string;
+    spentSomeMoney: string;
   };
   dmNotifications: {
     [id: string]: {
@@ -41,7 +48,6 @@ export type TicketBotOptions = {
     grafanaURL: string;
   };
   prefix: string;
-  db: Database;
   recipients: string[];
   owners: string[];
   development: boolean;
@@ -61,30 +67,31 @@ export default class TicketBot extends Client {
     this.context = {
       commands,
       client: this,
-      db: this.opts.db
+      db: new Database(),
     };
 
     this.loadEvents();
   }
 
-  public connect(): Promise<void> {
-    return Promise.all([
+  public async bootstrap(): Promise<void> {
+    await Promise.all([
       super.connect(),
-      this.opts.db.bootstrap()
-    ]).then(() => {
-      for (const command of commands.values()) {
-        command.onLoad(this.context);
-      }
-    });
+      this.context.db.bootstrap()
+        .then(() => this.loadCommands())
+    ]);
+  }
+
+  public async loadCommands(): Promise<number> {
+    return Promise.all(
+      [ ...commands.values() ]
+        .map(command => command.onLoad!(this.context))
+    ).then(r => r.length);
   }
 
   public loadEvents(): void {
     for (const event of Object.values(events)) {
-      if (event.once) {
-        this.once(event.packetName, event.handler.bind(this));
-      } else {
-        this.on(event.packetName, event.handler.bind(this));
-      }
+      // @ts-ignore
+      this[event.once ? 'once' : 'on'](event.packetName, event.handler.bind(this));
     }
   }
 }
