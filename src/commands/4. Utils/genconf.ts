@@ -62,7 +62,7 @@ export default class GrafanaLoginCommand implements ICommand {
     }
     
     for (const channel of channels) {
-      if (!relabelConfigs.find(relabel => relabel.regex === channels.id)) {
+      if (!relabelConfigs.find(relabel => relabel.regex === channel.id)) {
         relabelConfigs.push({
           replacement: channel.name,
           source_labels: ['channel_id'],

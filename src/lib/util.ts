@@ -1,7 +1,6 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { TicketBotOptions } from '../Client';
-import { DatabaseConfig } from '../Database';
 import { Defaults } from '../Constants';
 
 const markdownCharRegex = /(\*|_|~|`|\|\||<|>)/g;
