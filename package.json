@@ -18,14 +18,20 @@
   },
   "homepage": "https://github.com/dankmemer/ticketbot#readme",
   "dependencies": {
+    "@types/ioredis": "^4.14.7",
+    "@types/rethinkdbdash": "git+https://github.com/types/rethinkdbdash.git",
     "eris": "^0.11.2",
     "eris-lavalink": "^1.0.2",
+    "ioredis": "^4.16.0",
     "mongodb": "^3.4.1",
     "prom-client": "^11.5.3",
+    "rethinkdbdash": "^2.3.31",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "yaml": "^1.7.2"
   },
   "devDependencies": {
+    "@types/yaml": "^1.2.0",
     "eslint": "^6.8.0",
     "@types/mongodb": "^3.3.14",
     "@typescript-eslint/eslint-plugin": "^2.14.0",

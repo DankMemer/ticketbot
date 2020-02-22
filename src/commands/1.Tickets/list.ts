@@ -13,6 +13,8 @@ export default class ListCommand implements ICommand {
       return `Invalid target \`${target}\`. Please supply a mention or ID.`;
     }
 
+    console.log(db.tickets);
+
     const tickets = await db.tickets.getTicketsByUser(target);
     if (tickets.length === 0) {
       return `${target === msg.author.id ? 'You have' : `<@${target}> has`} no open tickets.`;
