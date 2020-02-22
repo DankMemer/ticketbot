@@ -1,7 +1,7 @@
 import { ICommand, CommandParams, CommandOutput, Context } from '../Command';
 import { Restricted } from '../decorators';
 import { inspect } from 'util';
-import { codeblock } from '../../lib/util';
+import { codeblock, escapeRegex } from '../../lib/util';
 import { config } from '../../';
 
 @Restricted({ userIDs: config.owners })
@@ -15,7 +15,9 @@ export default class EvalCommand implements ICommand {
 
   public onLoad({ client }: Context): void {
     this.credentialRegex = RegExp(
-      Object.values(client.opts.keys).join('|'),
+      Object.values(client.opts.keys)
+        .map(escapeRegex)
+        .join('|'),
       'gi'
     );
   }

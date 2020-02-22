@@ -48,6 +48,9 @@ export const capitalize = (text: string): string =>
 export const unique = (elem, index, self): boolean =>
   self.indexOf(elem) === index;
 
+export const escapeRegex = (str: string): string =>
+  str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+
 export const humanConcatenate: {
   (...params: string[]);
   (params: string[]);
