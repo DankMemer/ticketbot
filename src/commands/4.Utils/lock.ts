@@ -1,4 +1,4 @@
-import { ICommand, CommandParams, CommandOutput } from '../Command';
+import { ICommand, CommandParams, Context, CommandOutput } from '../Command';
 import { Restricted } from '../decorators';
 import { config } from '../../';
 import { TextChannel } from 'eris';
@@ -45,6 +45,22 @@ export default class LockCommand implements ICommand {
   help = '<list | lock | unlock> [all | ...#channels]';
   aliases = ['lu'];
 
+  private lockableChannels: string[] = [];
+  private initialized: boolean = false;
+
+  public async onLoad({ client }: Partial<Context>): Promise<void> {
+    if (this.initialized) {
+      return;
+    }
+    this.initialized = true;
+
+    for (const id of LOCKABLE_CHANNELS) {
+      await client.getRESTChannel(id)
+        .then(() => this.lockableChannels.push(id))
+        .catch(() => {});
+    }
+  }
+
   public async execute({ client, msg, args }: CommandParams): Promise<CommandOutput> {
     const mode = args.shift();
     switch (mode) {
@@ -73,7 +89,7 @@ export default class LockCommand implements ICommand {
   }
 
   private getState(client: CommandParams['client']): ChannelState {
-    return LOCKABLE_CHANNELS.map(id => ({
+    return this.lockableChannels.map(id => ({
       id,
       name: (client.getChannel(id) as TextChannel).name,
       locked: !!((client.getChannel(id) as TextChannel)
@@ -100,18 +116,18 @@ export default class LockCommand implements ICommand {
     { client, msg, args }: Partial<CommandParams>
   ) {
     const channels = args[0] === 'all'
-      ? LOCKABLE_CHANNELS
+      ? this.lockableChannels
       : msg.channelMentions;
 
     if (channels.length === 0) {
       return `Please specify which channels you want to ${mode}.\n\`${this.help}\``
     }
 
-    if (channels.some(channel => !LOCKABLE_CHANNELS.includes(channel))) {
+    if (channels.some(channel => !this.lockableChannels.includes(channel))) {
       return {
         title: `The following channels aren\'t ${mode}able:`,
         description: channels
-          .filter(channel => !LOCKABLE_CHANNELS.includes(channel))
+          .filter(channel => !this.lockableChannels.includes(channel))
           .map(channel => `- <#${channel}>`)
           .join('\n') + `\n\nPlease try running the command again.\nYou can see a list of ${mode}able channels with \`${config.prefix}lockutil list\`.`
       }

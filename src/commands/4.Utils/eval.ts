@@ -25,7 +25,7 @@ export default class EvalCommand implements ICommand {
   public async execute({ msg, args, ...rest }: CommandParams): Promise<CommandOutput> {
     const depthIdx = args.findIndex(arg => arg.startsWith('--depth'));
     let depth = depthIdx === -1
-      ? 2
+      ? 1
       : +args.splice(depthIdx, 1)[0].split('=')[1];
     let input = args.join(' ');
 
@@ -59,7 +59,7 @@ export default class EvalCommand implements ICommand {
       output = output.slice(0, 1950) + ' ...';
     }
 
-    return codeblock(output, 'javascript')
+    return codeblock(output || '\n', 'javascript')
       .replace(this.credentialRegex, 'i think the fuck not you trick ass bitch');
   }
 }

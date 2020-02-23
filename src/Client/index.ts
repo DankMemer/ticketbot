@@ -59,8 +59,9 @@ export default class TicketBot extends Client {
   public context: Context;
 
   constructor(opts: TicketBotOptions) {
-    super(opts.keys.discord, {
-      getAllUsers: !opts.development
+    super(`Bot ${opts.keys.discord}`, {
+      getAllUsers: !opts.development,
+      restMode: true
     });
 
     this.opts = opts;
