@@ -11,17 +11,17 @@ commands.populate()
       if (!command.onLoad) {
         command.onLoad = (): void => void 0;
       }
-
       if (!command.category) {
         command.category = category;
       }
-
       if (!command.aliases) {
         command.aliases = [];
       }
       if (!command.help) {
         command.help = '';
       }
+
+      command.loaded = false;
     
       commandMap.set(command.name, command);
       for (const alias of command.aliases) {

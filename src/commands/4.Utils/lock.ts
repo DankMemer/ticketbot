@@ -44,14 +44,8 @@ export default class LockCommand implements ICommand {
   aliases = ['lu'];
 
   private lockableChannels: string[] = [];
-  private initialized = false;
 
   public async onLoad({ client }: Partial<Context>): Promise<void> {
-    if (this.initialized) {
-      return;
-    }
-    this.initialized = true;
-
     for (const id of LOCKABLE_CHANNELS) {
       await client.getRESTChannel(id)
         .then(() => this.lockableChannels.push(id))

@@ -85,7 +85,12 @@ export default class TicketBot extends Client {
   public async loadCommands(): Promise<number> {
     return Promise.all(
       [ ...commands.values() ]
-        .map(command => command.onLoad(this.context))
+        .map(command => {
+          if (!command.loaded) {
+            command.loaded = true;
+            command.onLoad(this.context);
+          }
+        })
     ).then(r => r.length);
   }
 

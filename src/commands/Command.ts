@@ -24,6 +24,7 @@ export interface ICommand {
   aliases?: string[];
   help?: string;
   raw?: boolean;
+  loaded?: boolean;
 
   execute(params?: CommandParams): Awaitable<CommandOutput>;
   onLoad?(params?: Context): void;
