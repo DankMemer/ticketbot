@@ -2,14 +2,22 @@ import { MongoClient, Db } from 'mongodb';
 import Tickets from './tables/Tickets';
 import GrafanaAccounts from './tables/GrafanaAccounts';
 import { config } from '../';
+import rethinkdbdash, { ReqlClient } from 'rethinkdbdash';
 
 export default class Database {
   private db: Db;
-  
+
+  public r: ReqlClient;
+
   public tickets: Tickets;
   public grafanaAccounts: GrafanaAccounts;
 
   public async bootstrap(): Promise<void> {
+    this.r = rethinkdbdash({
+      host: config.keys.dbServerHost,
+      password: config.keys.rethink
+    });
+
     const dbConn = await MongoClient.connect(config.keys.mongo, {
       useUnifiedTopology: true
     });
