@@ -1,15 +1,48 @@
 {
-  "clientConfig": {
-    "token": "bot token",
-    "roleID": "role id lock",
-    "guildID": "guild id lock",
-    "channelID": "guild channel lock",
-    "prefix": "prefix ",
-    "owners": [ "array", "of", "user", "ids" ],
-    "recipients": [ "array", "of", "dm", "channel", "ids" ]
+  "development": true,
+  "music": true,
+  "keys": {
+    "discord": "",
+    "youtube": "",
+    "lavalink": "",
+    "grafana": "", 
+    "mongo": ""
   },
-  "dbConfig": {
-    "url": "mongo connection string",
-    "dbName": "mongo db name"
+  "guildID": "",
+  "appealHookID": "",
+  "roles": {
+    "mods": "",
+    "formerStaff": "",
+    "trialMods": "",
+    "acceptedRules": "",
+    "modManagers": "",
+    "directors": "",
+    "spentSomeMoney": "7"
+  },
+  "channels": {
+    "modCommands": "",
+    "devCategory": "",
+    "support": [ "", "" ],
+    "botFeedback": "",
+    "generalChat": "",
+    "premiumChat": "",
+    "botCommands": [ "", "" ],
+    "premiumCommands": "",
+    "betaCommands": "",
+    "statusUpdates": ""
+  },
+  "channelID": "",
+  "prefix": "",
+  "owners": [ "" ],
+  "recipients": [ "" ],
+  "dmNotifications": {
+    "": {
+      "users": [ "" ],
+      "dmChannelID": ""
+    }
+  },
+  "metrics": {
+    "prometheusPort": 7999,
+    "grafanaURL": ""
   }
 }
