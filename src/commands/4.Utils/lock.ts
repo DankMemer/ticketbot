@@ -1,13 +1,11 @@
 import { ICommand, CommandParams, Context, CommandOutput } from '../Command';
 import { Restricted } from '../decorators';
 import { config } from '../../';
-import { TextChannel } from 'eris';
+import { EmbedOptions, TextChannel } from 'eris';
 import { codeblock, capitalize } from '../../lib/util';
-import { Constants } from 'eris';
+import { Permissions } from '../../Constants';
 
 type ChannelState = Array<{ id: string; name: string; locked: boolean }>;
-const SEND_MESSAGES_PERM_BITFIELD = Constants.Permissions.sendMessages;
-const READ_MESSAGES_PERM_BITFIELD = Constants.Permissions.readMessages;
 const LOCKABLE_CHANNELS: string[] = [
   ...config.channels.support,
   ...config.channels.botCommands,
@@ -34,8 +32,8 @@ const ROLE_ID_OVERRRIDES: Array<{
     config.channels.premiumCommands
   ],
   bitfields: {
-    lock: { allow: READ_MESSAGES_PERM_BITFIELD, deny: SEND_MESSAGES_PERM_BITFIELD },
-    unlock: { allow: READ_MESSAGES_PERM_BITFIELD, deny: 0 }
+    lock: { allow: Permissions.VIEW_CHANNEL, deny: Permissions.SEND_MESSAGES },
+    unlock: { allow: Permissions.VIEW_CHANNEL, deny: 0 }
   }
 } ];
 
@@ -46,7 +44,7 @@ export default class LockCommand implements ICommand {
   aliases = ['lu'];
 
   private lockableChannels: string[] = [];
-  private initialized: boolean = false;
+  private initialized = false;
 
   public async onLoad({ client }: Partial<Context>): Promise<void> {
     if (this.initialized) {
@@ -76,7 +74,7 @@ export default class LockCommand implements ICommand {
     }
   }
 
-  public async list(client: CommandParams['client']) {
+  public async list(client: CommandParams['client']): Promise<EmbedOptions> {
     return {
       title: 'Lock State',
       description: codeblock(
@@ -85,7 +83,7 @@ export default class LockCommand implements ICommand {
           .join('\n'),
         'diff'
       ),
-    }
+    };
   }
 
   private getState(client: CommandParams['client']): ChannelState {
@@ -95,7 +93,7 @@ export default class LockCommand implements ICommand {
       locked: !!((client.getChannel(id) as TextChannel)
         .permissionOverwrites
         .get(this.getOverride(id).roleID)
-        .deny & SEND_MESSAGES_PERM_BITFIELD)
+        .deny & Permissions.SEND_MESSAGES)
     }));
   }
 
@@ -105,8 +103,8 @@ export default class LockCommand implements ICommand {
       roleID: config.roles.acceptedRules,
       channelIDs: [],
       bitfields: {
-        lock: { allow: 0, deny: SEND_MESSAGES_PERM_BITFIELD },
-        unlock: { allow: SEND_MESSAGES_PERM_BITFIELD, deny: 0 }
+        lock: { allow: 0, deny: Permissions.SEND_MESSAGES },
+        unlock: { allow: Permissions.SEND_MESSAGES, deny: 0 }
       }
     };
   }
@@ -114,23 +112,23 @@ export default class LockCommand implements ICommand {
   private async edit(
     mode: 'lock' | 'unlock',
     { client, msg, args }: Partial<CommandParams>
-  ) {
+  ): Promise<CommandOutput> {
     const channels = args[0] === 'all'
       ? this.lockableChannels
       : msg.channelMentions;
 
     if (channels.length === 0) {
-      return `Please specify which channels you want to ${mode}.\n\`${this.help}\``
+      return `Please specify which channels you want to ${mode}.\n\`${this.help}\``;
     }
 
     if (channels.some(channel => !this.lockableChannels.includes(channel))) {
       return {
-        title: `The following channels aren\'t ${mode}able:`,
+        title: `The following channels aren't ${mode}able:`,
         description: channels
           .filter(channel => !this.lockableChannels.includes(channel))
           .map(channel => `- <#${channel}>`)
           .join('\n') + `\n\nPlease try running the command again.\nYou can see a list of ${mode}able channels with \`${config.prefix}lockutil list\`.`
-      }
+      };
     }
 
     const prompt = await msg.channel.createMessage({ embed: {

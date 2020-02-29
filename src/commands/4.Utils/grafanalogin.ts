@@ -65,14 +65,14 @@ export default class GrafanaLoginCommand implements ICommand {
       return `Missing username parameter:\n\`${this.help}\``;
     }
     if (!(/^[A-z0-9]*$/).test(username)) {
-      return 'Invalid username format; only Latin characters allowed'
+      return 'Invalid username format; only Latin characters allowed';
     }
     if (await db.grafanaAccounts.getAccountByUsername(username)) {
       return `Account with username \`${username}\` already exists.`;
     }
     const existingDiscordAccount = await db.grafanaAccounts.getAccountByDiscordID(msg.author.id);
     if (existingDiscordAccount) {
-      return `This Discord account already has a Grafana account (username: \`${existingDiscordAccount.username}\`, created @ ${dateToString(existingDiscordAccount.createdAt)})`
+      return `This Discord account already has a Grafana account (username: \`${existingDiscordAccount.username}\`, created @ ${dateToString(existingDiscordAccount.createdAt)})`;
     }
 
     const password = randomBytes(16).toString('hex');

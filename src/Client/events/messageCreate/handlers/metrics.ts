@@ -14,8 +14,8 @@ export const metrics: Handler = async function (msg) {
     msg.member.roles.includes(this.opts.roles.mods)
   ) {
     messages.inc({
-      author_id: msg.author.id,
-      channel_id: msg.channel.id,
+      'author_id': msg.author.id,
+      'channel_id': msg.channel.id,
     });
   }
 };

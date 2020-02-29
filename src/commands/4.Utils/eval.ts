@@ -27,7 +27,7 @@ export default class EvalCommand implements ICommand {
     let depth = depthIdx === -1
       ? 1
       : +args.splice(depthIdx, 1)[0].split('=')[1];
-    let input = args.join(' ');
+    const input = args.join(' ');
 
     if (!input) {
       return 'missing args';

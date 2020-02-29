@@ -5,10 +5,10 @@ const friendlyMessages: { [k: number]: string } = {
 };
 export enum ChannelLockTypes {
   DIRECT_MESSAGES = 1,
-};
+}
 
 export const ChannelLock = (channelType: ChannelLockTypes) =>
-  <T extends new (...args: any[]) => any>(Target: T) => {
+  <T extends new (...args: any[]) => any>(Target: T): T => {
     return class extends Target implements Partial<ICommand> {
       public execute({ msg, ...rest }: CommandParams): CommandOutput {
         if (msg.channel.type !== channelType) {
@@ -17,5 +17,5 @@ export const ChannelLock = (channelType: ChannelLockTypes) =>
 
         return super.execute({ msg, ...rest });
       }
-    }
+    };
   };

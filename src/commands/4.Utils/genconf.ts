@@ -53,10 +53,10 @@ export default class GrafanaLoginCommand implements ICommand {
     for (const member of members) {
       if (!relabelConfigs.find(relabel => relabel.regex === member.id)) {
         relabelConfigs.push({
-          source_labels: ['author_id'],
-          regex: member.id,
-          target_label: 'user_name',
-          replacement: member.nick || member.username,
+          'source_labels': ['author_id'],
+          'regex': member.id,
+          'target_label': 'user_name',
+          'replacement': member.nick || member.username,
         });
       }
     }
@@ -64,10 +64,10 @@ export default class GrafanaLoginCommand implements ICommand {
     for (const channel of channels) {
       if (!relabelConfigs.find(relabel => relabel.regex === channel.id)) {
         relabelConfigs.push({
-          replacement: channel.name,
-          source_labels: ['channel_id'],
-          regex: channel.id,
-          target_label: 'channel_name',
+          'replacement': channel.name,
+          'source_labels': ['channel_id'],
+          'regex': channel.id,
+          'target_label': 'channel_name',
         });
       }
     }

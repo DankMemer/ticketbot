@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "incremental": false,                     /* Enable incremental compilation */
-    "target": "es6",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
-    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    "lib": [],                                /* Specify library files to be included in the compilation. */
+    "incremental": true,
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [],
     "rootDir": "./src/",
     "outDir": "./build/",
-    "allowJs": false,                         /* Allow javascript files to be compiled. */
-    "checkJs": false,                         /* Report errors in .js files. */
-    "declaration": false,                     /* Generates corresponding '.d.ts' file. */
-    "sourceMap": false,                       /* Generates corresponding '.map' file. */
-    "removeComments": true,                   /* Do not emit comments to output. */
-    "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */,
+    "allowJs": false,
+    "checkJs": false,
+    "declaration": false,
+    "sourceMap": false,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true
   }
 }

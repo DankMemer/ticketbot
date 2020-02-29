@@ -5,7 +5,7 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
   roleIDs?: string[];
   userIDs?: string[];
 }) =>
-  <T extends new (...args: any[]) => any>(Target: T) => {
+  <T extends new (...args: any[]) => any>(Target: T): T => {
     return class extends Target implements Partial<ICommand> {
       public execute({ client, msg, ...rest }: CommandParams): CommandOutput {
         if (roleIDs.length === 0 && userIDs.length === 0) {
@@ -33,5 +33,5 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
 
         return super.execute({ client, msg, ...rest });
       }
-    }
+    };
   };
