@@ -98,7 +98,7 @@ export default class LockCommand implements ICommand {
       channelIDs: [],
       bitfields: {
         lock: { allow: 0, deny: Permissions.SEND_MESSAGES },
-        unlock: { allow: Permissions.SEND_MESSAGES, deny: 0 }
+        unlock: { allow: 0, deny: 0 }
       }
     };
   }
