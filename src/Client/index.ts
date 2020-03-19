@@ -48,7 +48,6 @@ export type TicketBotOptions = {
     grafanaURL: string;
   };
   prefix: string;
-  recipients: string[];
   owners: string[];
   development: boolean;
   music: boolean;

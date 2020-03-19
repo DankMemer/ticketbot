@@ -16,7 +16,7 @@ export default class CreateCommand implements ICommand {
       _id: await db.tickets.getIncrementingID(),
       content: args.join(' '),
       recipients: [
-        ...client.opts.recipients,
+        ...await db.recipients.getAllRecipientChannels(),
         await client.getDMChannel(msg.author.id).then(c => c.id)
       ]
         .filter((channelID, index, self) => self.indexOf(channelID) === index)

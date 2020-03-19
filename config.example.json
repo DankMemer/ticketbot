@@ -34,7 +34,6 @@
   "channelID": "",
   "prefix": "",
   "owners": [ "" ],
-  "recipients": [ "" ],
   "dmNotifications": {
     "": {
       "users": [ "" ],
