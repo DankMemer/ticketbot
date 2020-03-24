@@ -1,6 +1,5 @@
 import { ICommand, CommandParams, CommandOutput } from '../Command';
 import { Ticket } from '../../Database/tables/Tickets';
-import { Emojis } from '../../Constants';
 import { TicketRenderer } from '../../renderers';
 
 export default class CreateCommand implements ICommand {
@@ -8,7 +7,7 @@ export default class CreateCommand implements ICommand {
   help = '<content>';
   public async execute({ client, db, msg, args }: CommandParams): Promise<CommandOutput> {
     if (args.length === 0) {
-      return `Meow, you cannot send an empty ticket, please try again. ${Emojis.GUCCI_REE}`;
+      return 'you can\'t create an empty ticket, please try again.';
     }
 
     const ticket: Ticket = {
@@ -40,7 +39,7 @@ export default class CreateCommand implements ICommand {
     await db.tickets.createTicket(ticket);
 
     return {
-      title: `Successfully created ticket #${ticket._id} ${Emojis.GUCCI_SIDEEYE}`,
+      title: `Successfully created ticket #${ticket._id}`,
       fields: [ {
         name: 'Content',
         value: ticket.content

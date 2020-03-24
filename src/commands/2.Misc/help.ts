@@ -1,6 +1,5 @@
 import { EmbedOptions } from 'eris';
 import { ICommand, Context, CommandOutput } from '../Command';
-import { Emojis } from '../../Constants';
 import { unique } from '../../lib/util';
 
 export default class HelpCommand implements ICommand {
@@ -16,8 +15,6 @@ export default class HelpCommand implements ICommand {
       .sort();
 
     this.renderedResult = {
-      title: 'Meow! I\'m Gucci',
-      description: `Hewwo, ime gucci and ime secretary for the Devs, meow ${Emojis.GUCCI_ROAR}`,
       fields: categories.map(category => ({
         name: `**${category}**`,
         value: commandsArray

@@ -1,5 +1,4 @@
 import { ICommand, CommandParams, CommandOutput } from '../Command';
-import { Emojis } from '../../Constants';
 import { TicketRenderer } from '../../renderers';
 
 export default class DeleteCommand implements ICommand {
@@ -8,19 +7,19 @@ export default class DeleteCommand implements ICommand {
   help = '<ticket id> [--override]';
   public async execute({ client, msg, args, db }: CommandParams): Promise<CommandOutput> {
     if (!args[0]) {
-      return `specify a ticket ID and try again ${Emojis.GUCCI_REE}`;
+      return 'specify a ticket ID and try again';
     }
 
     const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
     const ticket = await db.tickets.getTicket(+args[0]);
     if (!ticket) {
-      return `no ticket with ID #${args[0]} ${Emojis.GUCCI_PANIC_2}`;
+      return `no ticket with ID #${args[0]}`;
     }
     if (
       (ticket.userID !== msg.author.id && !override) &&
       !client.opts.owners.includes(msg.author.id)
     ) {
-      return `you don't own this ticket ${Emojis.GUCCI_PANIC_2}\n(run again with \`--override\` to delete the ticket if this was not a mistake)`;
+      return 'you don\'t own this ticket.\n(run again with `--override` to delete the ticket if this was not a mistake)';
     }
 
     for (const recipient of ticket.recipients) {
@@ -32,7 +31,7 @@ export default class DeleteCommand implements ICommand {
     await db.tickets.deleteTicket(ticket._id);
 
     return {
-      title: `Deleted ticket #${ticket._id} ${Emojis.GUCCI_SCREAM}`
+      title: `Deleted ticket #${ticket._id}`
     };
   }
 }

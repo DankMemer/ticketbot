@@ -1,12 +1,9 @@
 import { ICommand, CommandOutput } from '../Command';
-import { randomInArray } from '../../lib/util';
-import { CatPics, Emojis } from '../../Constants';
 
 export default class PicCommand implements ICommand {
   name = 'pic';
   aliases = ['floof'];
   execute = (): CommandOutput => ({
-    title: randomInArray<string>(Object.values(Emojis)),
-    image: { url: randomInArray<string>(CatPics) }
+    image: { url: 'https://hey-alex.nl/wp-content/uploads/2018/12/lil-pump-kerker.png' }
   });
 }
