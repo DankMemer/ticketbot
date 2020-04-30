@@ -6,7 +6,7 @@ export const onMessageCreate: Event = {
   packetName: 'messageCreate',
   async handler(msg: Message) {
     if (
-      (msg.channel.type === 0 && msg.channel.guild.id !== this.opts.guildID)
+      (msg.channel.type === 0 && !this.opts.guildIDs.includes(msg.channel.guild.id))
     ) {
       return;
     }

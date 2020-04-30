@@ -12,7 +12,7 @@ export const Restricted = ({ roleIDs = [], userIDs = [] }: {
           throw new Error("Expected at least one filter parameter");
         }
 
-        const guild = client.guilds.get(config.guildID);
+        const guild = client.guilds.get(config.guildIDs[0]);
         const member = guild.members.get(msg.author.id);
 
         if (

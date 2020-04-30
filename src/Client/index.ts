@@ -14,7 +14,7 @@ export type TicketBotOptions = {
     rethink: string;
     dbServerHost: string;
   };
-  guildID: string;
+  guildIDs: string[];
   appealHookID: string;
   channels: {
     support: string[];
@@ -27,6 +27,7 @@ export type TicketBotOptions = {
     premiumCommands: string;
     betaCommands: string;
     statusUpdates: string;
+    privateTesting: string;
   };
   roles: {
     mods: string;
