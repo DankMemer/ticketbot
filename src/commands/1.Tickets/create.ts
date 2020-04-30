@@ -1,6 +1,7 @@
 import { ICommand, CommandParams, CommandOutput } from '../Command';
 import { Ticket } from '../../Database/tables/Tickets';
 import { TicketRenderer } from '../../renderers';
+import { unique } from '../../lib/util';
 
 export default class CreateCommand implements ICommand {
   name = 'create';
@@ -18,7 +19,7 @@ export default class CreateCommand implements ICommand {
         ...await db.recipients.getAllRecipientChannels(),
         await client.getDMChannel(msg.author.id).then(c => c.id)
       ]
-        .filter((channelID, index, self) => self.indexOf(channelID) === index)
+        .filter(unique)
         .map(channelID => ({ channelID, messageID: null }))
     };
 
