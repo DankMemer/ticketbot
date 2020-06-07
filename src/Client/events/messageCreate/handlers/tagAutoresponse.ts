@@ -6,7 +6,8 @@ import { config } from '../../../../';
 const TAG_DELETE_WHITELIST = [
   config.roles.mods,
   config.roles.formerMods,
-  config.roles.trialMods
+  config.roles.trialMods,
+  config.roles.supportSpecialist
 ];
 
 export const tagAutoresponse: Handler = async function (msg) {

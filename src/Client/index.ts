@@ -37,6 +37,7 @@ export type TicketBotOptions = {
     modManagers: string;
     directors: string;
     spentSomeMoney: string;
+    supportSpecialist: string;
   };
   dmNotifications: {
     [id: string]: {
