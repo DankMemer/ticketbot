@@ -25,7 +25,7 @@ export const handleCommand: Handler = async function (msg) {
     msg.author.bot ||
     !guildMember ||
     whitelistedRoles.every(roleID => !msg.member.roles.includes(roleID)) ||
-    (msg.channel.type === 0 && whitelistedChannels.some(channelID => msg.channel.id === channelID || (msg.channel as any).parentID === channelID)) ||
+    (msg.channel.type === 0 && whitelistedChannels.every(channelID => msg.channel.id !== channelID && (msg.channel as any).parentID !== channelID)) ||
     !msg.content.toLowerCase().startsWith(this.opts.prefix)
   ) {
     return;
