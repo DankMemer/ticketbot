@@ -1,8 +1,14 @@
 import Handler from './Handler';
 import { commands } from '../../../../commands';
 import { MessageContent } from 'eris';
+import { config } from '../../../../';
 
 const iOSDoubleHyphen = /—/g;
+const whitelistedRoles = [
+  config.roles.mods,
+  config.roles.developers,
+  config.roles.supportSpecialist
+];
 
 export const handleCommand: Handler = async function (msg) {
   const guildMember = this
@@ -12,7 +18,7 @@ export const handleCommand: Handler = async function (msg) {
   if (
     msg.author.bot ||
     !guildMember ||
-    !guildMember.roles.includes(this.opts.roles.mods) ||
+    whitelistedRoles.every(roleID => !msg.member.roles.includes(roleID)) ||
     (msg.channel.type === 0 && (msg.channel.id !== this.opts.channels.privateTesting && msg.channel.id !== this.opts.channels.modCommands && msg.channel.parentID !== this.opts.channels.devCategory)) ||
     !msg.content.toLowerCase().startsWith(this.opts.prefix)
   ) {

@@ -38,6 +38,7 @@ export type TicketBotOptions = {
     directors: string;
     spentSomeMoney: string;
     supportSpecialist: string;
+    developers: string;
   };
   dmNotifications: {
     [id: string]: {
