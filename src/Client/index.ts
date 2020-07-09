@@ -28,6 +28,7 @@ export type TicketBotOptions = {
     betaCommands: string;
     statusUpdates: string;
     privateTesting: string;
+    supportSpecialist: string;
   };
   roles: {
     mods: string;

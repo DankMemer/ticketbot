@@ -9,6 +9,12 @@ const whitelistedRoles = [
   config.roles.developers,
   config.roles.supportSpecialist
 ];
+const whitelistedChannels = [
+  config.channels.privateTesting,
+  config.channels.modCommands,
+  config.channels.devCategory,
+  config.channels.supportSpecialist
+];
 
 export const handleCommand: Handler = async function (msg) {
   const guildMember = this
@@ -19,7 +25,7 @@ export const handleCommand: Handler = async function (msg) {
     msg.author.bot ||
     !guildMember ||
     whitelistedRoles.every(roleID => !msg.member.roles.includes(roleID)) ||
-    (msg.channel.type === 0 && (msg.channel.id !== this.opts.channels.privateTesting && msg.channel.id !== this.opts.channels.modCommands && msg.channel.parentID !== this.opts.channels.devCategory)) ||
+    (msg.channel.type === 0 && whitelistedChannels.some(channelID => msg.channel.id === channelID || (msg.channel as any).parentID === channelID)) ||
     !msg.content.toLowerCase().startsWith(this.opts.prefix)
   ) {
     return;
