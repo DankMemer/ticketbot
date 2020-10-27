@@ -20,6 +20,10 @@ export class GenericTable<Entity extends GenericEntity> {
     return this.find({});
   }
 
+  protected getLatest(): Promise<Entity> {
+    return this.collection.findOne({}, { sort: { $natural: -1 } });
+  }
+
   protected find(query: object = {}): Promise<Entity[]> {
     return this.collection.find({
       currentID: { $exists: false },
