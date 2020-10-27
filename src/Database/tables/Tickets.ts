@@ -14,8 +14,15 @@ export default class Tickets extends GenericTable<Ticket> {
     return ticket._id;
   }
 
-  public async getTicket(_id: Ticket['_id']): Promise<Ticket> {
-    return this.get(_id);
+  public async getTicket(_id: number | string): Promise<Ticket> {
+    if (Number.isNaN(+_id)) {
+      if ((_id as string).toLowerCase() === 'latest') {
+        return this.getLatest();
+      }
+      return null;
+    }
+
+    return this.get(+_id);
   }
 
   public async getTickets(): Promise<Ticket[]> {
