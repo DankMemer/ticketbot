@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb';
 
 export type GenericEntity = {
-  _id?: number | string;
+  _id?: number;
 };
 
 export class GenericTable<Entity extends GenericEntity> {
@@ -18,10 +18,6 @@ export class GenericTable<Entity extends GenericEntity> {
 
   protected getAll(): Promise<Entity[]> {
     return this.find({});
-  }
-
-  protected getLatest(): Promise<Entity> {
-    return this.collection.findOne({}, { sort: { $natural: -1 } });
   }
 
   protected find(query: object = {}): Promise<Entity[]> {

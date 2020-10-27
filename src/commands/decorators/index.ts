@@ -6,3 +6,4 @@ export interface CommandExecutePropertyDescriptor extends PropertyDescriptor {
 
 export * from './Paginated';
 export * from './Restricted';
+export * from './ChannelLock';

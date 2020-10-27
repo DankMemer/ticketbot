@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "types": [""],
     "incremental": false,
     "target": "es6",
     "module": "commonjs",
+    "lib": [],
     "rootDir": "./src/",
     "outDir": "./build/",
     "allowJs": false,

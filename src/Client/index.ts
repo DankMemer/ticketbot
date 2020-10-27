@@ -1,32 +1,65 @@
 import { Client } from 'eris';
-import { commandLoader, Context, ICommand } from '../commands';
+import { commands, Context } from '../commands';
 import * as events from './events';
 import Database from '../Database';
 
 export type TicketBotOptions = {
   keys: {
     discord: string;
+    youtube: string;
+    lavalink: string;
+    grafana: string;
     mongo: string;
+    redis: string;
+    rethink: string;
+    dbServerHost: string;
   };
   guildIDs: string[];
+  appealHookID: string;
   channels: {
-    lonBotCat: string;
-    lonTestCat: string;
+    support: string[];
+    modCommands: string;
+    devCategory: string;
+    botFeedback: string;
+    generalChat: string;
+    premiumChat: string;
+    botCommands: string[];
+    premiumCommands: string;
+    betaCommands: string;
+    statusUpdates: string;
+    privateTesting: string;
+    supportSpecialist: string;
   };
   roles: {
-    lonAdmin: string;
-    lonTesters: string;
+    mods: string;
+    formerMods: string;
+    trialMods: string;
+    acceptedRules: string;
+    modManagers: string;
+    directors: string;
+    spentSomeMoney: string;
+    supportSpecialist: string;
+    developers: string;
+  };
+  dmNotifications: {
+    [id: string]: {
+      users: string[];
+      dmChannelID: string;
+    };
+  };
+  metrics: {
+    prometheusPort: number;
+    grafanaURL: string;
   };
   prefix: string;
   owners: string[];
   development: boolean;
+  music: boolean;
 };
 
 export default class TicketBot extends Client {
   public opts: TicketBotOptions;
   public context: Context;
-  
-  public commands: Map<string, ICommand> = new Map();
 
   constructor(opts: TicketBotOptions) {
     super(`Bot ${opts.keys.discord}`, {
@@ -36,7 +69,7 @@ export default class TicketBot extends Client {
 
     this.opts = opts;
     this.context = {
-      commands: this.commands,
+      commands,
       client: this,
       db: new Database(),
     };
@@ -52,35 +85,9 @@ export default class TicketBot extends Client {
     ]);
   }
 
-   public async loadCommands(): Promise<number> {    
-    await commandLoader.populate();
-
-    for (const [ category, CommandClass ] of commandLoader.commands) {
-      const command = new CommandClass() as ICommand;
-    
-      if (!command.onLoad) {
-        command.onLoad = (): void => void 0;
-      }
-      if (!command.category) {
-        command.category = category;
-      }
-      if (!command.aliases) {
-        command.aliases = [];
-      }
-      if (!command.help) {
-        command.help = '';
-      }
-
-      command.loaded = false;
-    
-      this.commands.set(command.name, command);
-      for (const alias of command.aliases) {
-        this.commands.set(alias, command);
-      }
-    }
-
+  public async loadCommands(): Promise<number> {
     return Promise.all(
-      [ ...this.commands.values() ]
+      [ ...commands.values() ]
         .map(command => {
           if (!command.loaded) {
             command.loaded = true;

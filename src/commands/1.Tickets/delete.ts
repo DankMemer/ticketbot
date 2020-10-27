@@ -11,7 +11,7 @@ export default class DeleteCommand implements ICommand {
     }
 
     const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
-    const ticket = await db.tickets.getTicket(args[0]);
+    const ticket = await db.tickets.getTicket(+args[0]);
     if (!ticket) {
       return `no ticket with ID #${args[0]}`;
     }

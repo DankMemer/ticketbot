@@ -1,22 +1,47 @@
 {
   "development": true,
+  "music": true,
   "keys": {
     "discord": "",
+    "youtube": "",
+    "lavalink": "",
+    "grafana": "", 
     "mongo": ""
   },
-  "guildIDs": [
-    ""
-  ],
+  "guildID": "",
+  "appealHookID": "",
   "roles": {
-    "lonTesters": "",
-    "lonAdmin": ""
+    "mods": "",
+    "formerStaff": "",
+    "trialMods": "",
+    "acceptedRules": "",
+    "modManagers": "",
+    "directors": "",
+    "spentSomeMoney": "7"
   },
   "channels": {
-    "lonBotCat": "",
-    "lonTestCat": ""
+    "modCommands": "",
+    "devCategory": "",
+    "support": [ "", "" ],
+    "botFeedback": "",
+    "generalChat": "",
+    "premiumChat": "",
+    "botCommands": [ "", "" ],
+    "premiumCommands": "",
+    "betaCommands": "",
+    "statusUpdates": ""
   },
+  "channelID": "",
   "prefix": "",
-  "owners": [
-    ""
-  ]
+  "owners": [ "" ],
+  "dmNotifications": {
+    "": {
+      "users": [ "" ],
+      "dmChannelID": ""
+    }
+  },
+  "metrics": {
+    "prometheusPort": 7999,
+    "grafanaURL": ""
+  }
 }

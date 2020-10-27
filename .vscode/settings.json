@@ -1,7 +1,7 @@
 {
-  "files.exclude": {
-    "build/**/*.js": true
-  },
-  "editor.detectIndentation": false,
-  "editor.tabSize": 2
+    "files.exclude": {
+        "build/**/*.js": true
+    },
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2
 }

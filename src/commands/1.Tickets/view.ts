@@ -8,7 +8,7 @@ export default class ViewCommand implements ICommand {
   raw = true;
 
   public async execute({ client, db, args }: CommandParams): Promise<CommandOutput> {
-    const ticket = await db.tickets.getTicket(args[0]);
+    const ticket = await db.tickets.getTicket(+args[0]);
     if (!ticket) {
       return `I couldn't find a ticket with ID ${args[0]}`;
     }

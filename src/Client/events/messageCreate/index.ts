@@ -5,13 +5,8 @@ import * as handlers from './handlers';
 export const onMessageCreate: Event = {
   packetName: 'messageCreate',
   async handler(msg: Message) {
-    if (msg.author.bot) {
-      return;
-    }
-
     if (
-      msg.channel.type === 0 &&
-      !this.opts.guildIDs.includes(msg.channel.guild.id)
+      (msg.channel.type === 0 && !this.opts.guildIDs.includes(msg.channel.guild.id))
     ) {
       return;
     }
@@ -19,5 +14,5 @@ export const onMessageCreate: Event = {
     for (const handler of Object.values(handlers)) {
       await handler.call(this, msg);
     }
-  },
+  }
 };
