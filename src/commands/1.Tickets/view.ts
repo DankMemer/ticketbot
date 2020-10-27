@@ -4,11 +4,11 @@ import { escapeMarkdown } from '../../lib/util';
 
 export default class ViewCommand implements ICommand {
   name = 'view';
-  help = '<ticket id> <content to append> [--override]';
+  help = '<ticket id>';
   raw = true;
 
   public async execute({ client, db, args }: CommandParams): Promise<CommandOutput> {
-    const ticket = await db.tickets.getTicket(+args[0]);
+    const ticket = await db.tickets.getTicket(args[0]);
     if (!ticket) {
       return `I couldn't find a ticket with ID ${args[0]}`;
     }

@@ -17,7 +17,7 @@ export default class UpdateCommand implements ICommand {
     const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
     const append = args.includes('--append') && args.splice(args.indexOf('--append'), 1);
     const newContent = args.slice(1).join(' ');
-    const ticket = await db.tickets.getTicket(+args[0]);
+    const ticket = await db.tickets.getTicket(args[0]);
     if (!ticket) {
       return `no ticket with ID #${args[0]}`;
     }
