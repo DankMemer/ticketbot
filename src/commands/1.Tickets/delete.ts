@@ -1,5 +1,6 @@
 import { ICommand, CommandParams, CommandOutput } from '../Command';
 import { TicketRenderer } from '../../renderers';
+import { config } from '../..';
 
 export default class DeleteCommand implements ICommand {
   name = 'delete';
@@ -11,13 +12,14 @@ export default class DeleteCommand implements ICommand {
     }
 
     const override = args.includes('--override') && args.splice(args.indexOf('--override'), 1);
-    const ticket = await db.tickets.getTicket(+args[0]);
+    const ticket = await db.tickets.getTicket(args[0]);
     if (!ticket) {
       return `no ticket with ID #${args[0]}`;
     }
     if (
       (ticket.userID !== msg.author.id && !override) &&
-      !client.opts.owners.includes(msg.author.id)
+      !client.opts.owners.includes(msg.author.id) &&
+      !msg.member.roles.includes(config.roles.modManagers)
     ) {
       return 'you don\'t own this ticket.\n(run again with `--override` to delete the ticket if this was not a mistake)';
     }
@@ -35,4 +37,3 @@ export default class DeleteCommand implements ICommand {
     };
   }
 }
-
