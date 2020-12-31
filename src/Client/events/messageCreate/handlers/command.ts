@@ -7,13 +7,15 @@ const iOSDoubleHyphen = /—/g;
 const whitelistedRoles = [
   config.roles.mods,
   config.roles.developers,
-  config.roles.supportSpecialist
+  config.roles.supportSpecialist,
+  config.roles.dmcMods,
 ];
 const whitelistedChannels = [
   config.channels.privateTesting,
   config.channels.modCommands,
   config.channels.devCategory,
-  config.channels.supportSpecialist
+  config.channels.supportSpecialist,
+  config.channels.staffCmds,
 ];
 
 export const handleCommand: Handler = async function (msg) {

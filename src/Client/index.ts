@@ -19,6 +19,7 @@ export type TicketBotOptions = {
   channels: {
     support: string[];
     modCommands: string;
+    staffCmds: string;
     devCategory: string;
     botFeedback: string;
     generalChat: string;
@@ -32,6 +33,7 @@ export type TicketBotOptions = {
   };
   roles: {
     mods: string;
+    dmcMods: string;
     formerMods: string;
     trialMods: string;
     acceptedRules: string;
