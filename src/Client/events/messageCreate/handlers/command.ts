@@ -20,7 +20,7 @@ const whitelistedChannels = [
 
 export const handleCommand: Handler = async function (msg) {
   const guildMember = this
-    .guilds.get(this.opts.guildIDs[0])
+    .guilds.get(this.opts.guildIDs.includes((msg.channel as any).guild.id) ? (msg.channel as any).guild.id : this.opts.guildIDs[0])
     .members.get(msg.author.id);
 
   if (
