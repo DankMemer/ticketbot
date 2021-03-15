@@ -23,11 +23,13 @@
   "homepage": "https://github.com/dankmemer/ticketbot#readme",
   "dependencies": {
     "ts-node": "^8.5.4",
+    "axios": "^0.21.1",
     "eris": "^0.11.2",
     "eris-lavalink": "^1.0.2",
     "ioredis": "^4.16.0",
     "mongodb": "^3.4.1",
     "prom-client": "^11.5.3",
+    "quickchart-js": "^1.0.7",
     "rethinkdbdash": "^2.3.31",
     "yaml": "^1.7.2"
   },
